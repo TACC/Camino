@@ -1,0 +1,174 @@
+version: "3"
+services:
+  cms:
+    image: frontera-cms:initial
+    links:
+      - memcached:memcached
+      - postgres:postgres
+    volumes:
+      - ./conf/cms/secrets.py:/code/taccsite_cms/secrets.py
+      - /var/www/frontera/cms/static:/code/static
+    ports:
+      - 8000:8000
+    command: python3 manage.py runserver 0.0.0.0:8000
+    container_name: frontera_cms
+    hostname: frontera_cms
+    networks:
+      - frontera_net
+
+  memcached:
+    image: memcached:latest
+    command: ["-m", "512m"]
+    container_name: frontera_memcached
+    hostname: frontera_memcached
+    networks:
+      - frontera_net
+
+  postgres:
+    image: postgres:11.5
+    environment:
+      - POSTGRES_PASSWORD_FILE=/var/lib/postgresql/pg_password.secret
+      - POSTGRES_USER_FILE=/var/lib/postgresql/pg_user.secret
+      - POSTGRES_DB_FILE=/var/lib/postgresql/pg_db.secret
+      - PGDATA=/var/lib/postgresql/data/frontera_cms
+    volumes:
+      - frontera_postgres_data:/var/lib/postgresql/data
+      - ./conf/postgres/pg_db.secret:/var/lib/postgresql/pg_db.secret
+      - ./conf/postgres/pg_user.secret:/var/lib/postgresql/pg_user.secret
+      - ./conf/postgres/pg_password.secret:/var/lib/postgresql/pg_password.secret
+    ports:
+      - 5432:5432
+    hostname: frontera_postgres
+    container_name: frontera_postgres
+    networks:
+      - frontera_net
+  nginx:
+    image: nginx
+    volumes:
+      - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /path/to/certs:/etc/ssl/certs
+      - /var/www/frontera/cms/static:/var/www/frontera/cms/static
+    links:
+      - cms:cms
+      # - websockets:websockets
+    ports:
+      - 80:80
+      - 443:443
+    container_name: frontera_nginx
+    hostname: frontera_nginx
+    networks:
+      - frontera_net
+
+  # elasticsearch:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
+  #   ulimits:
+  #     memlock: -1
+  #   environment:
+  #     - ES_HEAP_SIZE:1g
+  #     - discovery.type=single-node
+  #   volumes:
+  #     - ../elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+  #     - frontera_es_data:/usr/share/elasticsearch/data
+  #   ports:
+  #     - 9200:9200
+  #   container_name: frontera_elasticsearch
+  #   hostname: frontera_elasticsearch
+  #   networks:
+  #     - frontera_net
+
+  # redis:
+  #   image: redis:5.0
+  #   volumes:
+  #     - frontera_redis_data:/data
+  #   ports:
+  #     - 6379:6379
+  #   container_name: frontera_redis
+  #   hostname: frontera_redis
+  #   networks:
+  #     - frontera_net
+
+  # rabbitmq:
+  #   image: rabbitmq:3.7.17-management
+  #   volumes:
+  #     - frontera_rabbitmq_data:/var/lib/rabbitmq/mnesia/rabbit@frontera_rabbitmq
+  #   env_file: ../env_files/rabbitmq.env
+  #   ports:
+  #     - 5672:5672
+  #     - 5673:5673
+  #     - 15673:15673
+  #     - 15672:15672
+  #   container_name: frontera_rabbitmq
+  #   hostname: frontera_rabbitmq
+  #   networks:
+  #     - frontera_net
+
+  # websockets:
+  #   image: frontera-portal/portal:local
+  #   links:
+  #     - redis:redis
+  #   volumes:
+  #     - ../../../.:/srv/www/portal
+  #   ports:
+  #     - 9000:9000
+  #   container_name: frontera_websockets
+  #   hostname: frontera_websockets
+  #   command: "/srv/www/.portal_env/bin/uwsgi --chdir /srv/www/portal/server --gevent 1000 --workers=2 --http-websockets  --http-socket=:9000 --module portal.wsgi_websocket:application"
+  #   networks:
+  #     - frontera_net
+
+  # core:
+  #   image: frontera-portal/portal:local
+  #   links:
+  #     - memcached:memcached
+  #     - postgres:postgres
+  #     - rabbitmq:rabbitmq
+  #     - redis:redis
+  #     - elasticsearch:elasticsearch
+  #   volumes:
+  #     - ../../../.:/srv/www/portal
+  #     - ../../data/static:/var/www/portal/server/static
+  #     - ../../data/media:/var/www/portal/server/media
+  #   ports:
+  #     - 8000:8000
+  #     - 5555:5555
+  #   dns:
+  #     - 8.8.8.8
+  #     - 8.8.4.4
+  #   stdin_open: true
+  #   tty: true
+  #   command: ['/srv/www/.portal_env/bin/python', './manage.py', 'runserver', '0.0.0.0:8000']
+  #   container_name: frontera_django
+  #   hostname: frontera_django
+  #   networks:
+  #     - frontera_net
+
+  # workers:
+  #   image: frontera-portal/portal:local
+  #   links:
+  #     - memcached:memcached
+  #     - postgres:postgres
+  #     - rabbitmq:rabbitmq
+  #     - redis:redis
+  #     - elasticsearch:elasticsearch
+  #   volumes:
+  #     - ../../../.:/srv/www/portal
+  #     - ../../data/static:/var/www/portal/server/static
+  #     - ../../data/media:/var/www/portal/server/media
+  #   dns:
+  #     - 8.8.8.8
+  #     - 8.8.4.4
+  #   command: "/srv/www/.portal_env/bin/celery -A portal worker -Q default,indexing,files,api,onboard --concurrency=2"
+  #   container_name: frontera_workers
+  #   hostname: frontera_workers
+  #   networks:
+  #     - frontera_net
+
+volumes:
+  # frontera_redis_data:
+  # frontera_es_data:
+  # frontera_rabbitmq_data:
+  frontera_postgres_data:
+
+networks:
+  frontera_net:
+    driver: bridge
