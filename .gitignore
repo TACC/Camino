@@ -31,9 +31,10 @@ MANIFEST
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-
+rabbitmq.env
+elasticsearch.yml
 *secrets.py
 *.secret
+*settings_secret.py
 *nginx.conf
-
 
