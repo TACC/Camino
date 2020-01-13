@@ -90,7 +90,7 @@ services:
       - 9000:9000
     container_name: frontera_websockets
     hostname: frontera_websockets
-    command: "/srv/www/.portal_env/bin/uwsgi --chdir /srv/www/portal/server --gevent 1000 --workers=2 --http-websockets  --http-socket=:9000 --module portal.wsgi_websocket:application"
+    command: "uwsgi --chdir /srv/www/portal/server --gevent 1000 --workers=2 --http-websockets  --http-socket=:9000 --module portal.wsgi_websocket:application"
     networks:
       - frontera_net
     volumes:
@@ -111,7 +111,7 @@ services:
       - 5555:5555
     stdin_open: true
     tty: true
-    command: ['/srv/www/.portal_env/bin/python', './manage.py', 'runserver', '0.0.0.0:6000']
+    command: ['python3', './manage.py', 'runserver', '0.0.0.0:6000']
     container_name: frontera_django
     hostname: frontera_django
     networks:
