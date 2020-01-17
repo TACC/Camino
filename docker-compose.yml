@@ -73,8 +73,6 @@ services:
     container_name: frontera_websockets
     hostname: frontera_websockets
     command: "uwsgi --chdir /srv/www/portal/server --gevent 1000 --workers=2 --http-websockets  --http-socket=:9000 --module portal.wsgi_websocket:application"
-    networks:
-      - frontera_net
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
 
