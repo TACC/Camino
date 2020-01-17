@@ -2,20 +2,16 @@ version: "3"
 services:
   cms:
     image: taccwma/frontera-cms:initial
-    links:
-      - memcached:memcached
     volumes:
       - ./conf/cms/secrets.py:/code/taccsite_cms/secrets.py
       - ./conf/uwsgi/uwsgi.ini:/code/uwsgi.ini
       - /var/www/frontera/cms/static:/code/static
       - /var/www/frontera/cms/media:/code/media
-    ports:
-      - 8000:8000
+    expose:
+      - "8000"
     command: ["uwsgi", "--ini", "uwsgi.ini"]
     container_name: frontera_cms
-    hostname: frontera_cms
-    networks:
-      - frontera_net
+
   nginx:
     image: nginx
     volumes:
@@ -26,22 +22,16 @@ services:
       - /var/www/frontera/cms/media:/var/www/frontera/cms/media
       - /var/www/frontera/portal/media:/var/www/frontera/portal/media
       - /var/www/frontera/portal/static:/var/www/frontera/portal/static
-    links:
-      - cms:cms
     ports:
       - 80:80
       - 443:443
     container_name: frontera_nginx
-    hostname: frontera_nginx
-    networks:
-      - frontera_net
+
   memcached:
     image: memcached:latest
     command: ["-m", "512m"]
     container_name: frontera_memcached
-    hostname: frontera_memcached
-    networks:
-      - frontera_net
+
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
     ulimits:
@@ -52,42 +42,34 @@ services:
     volumes:
       - ./conf/es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - frontera_es_data:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
+    expose:
+      - "9200"
     container_name: frontera_elasticsearch
-    hostname: frontera_elasticsearch
-    networks:
-      - frontera_net
+
   redis:
     image: redis:5.0
     volumes:
       - frontera_redis_data:/data
-    ports:
-      - 6379:6379
+    expose:
+      - "6379"
     container_name: frontera_redis
-    hostname: frontera_redis
-    networks:
-      - frontera_net
+
   rabbitmq:
     image: rabbitmq:3.7.17-management
     volumes:
       - frontera_rabbitmq_data:/var/lib/rabbitmq/mnesia/rabbit@frontera_rabbitmq
     env_file: ./conf/rabbitmq/rabbitmq.env
-    ports:
-      - 5672:5672
-      - 5673:5673
-      - 15673:15673
-      - 15672:15672
+    expose:
+      - "5672"
+      - "5673"
+      - "15673"
+      - "15672"
     container_name: frontera_rabbitmq
-    hostname: frontera_rabbitmq
-    networks:
-      - frontera_net
+
   websockets:
-    image: taccwma/frontera-portal:initial
-    links:
-      - redis:redis
-    ports:
-      - 9000:9000
+    image: taccwma/frontera-portal:fded485
+    expose:
+      - "9000"
     container_name: frontera_websockets
     hostname: frontera_websockets
     command: "uwsgi --chdir /srv/www/portal/server --gevent 1000 --workers=2 --http-websockets  --http-socket=:9000 --module portal.wsgi_websocket:application"
@@ -95,30 +77,23 @@ services:
       - frontera_net
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
+
   core:
-    image: taccwma/frontera-portal:initial
-    links:
-      - memcached:memcached
-      - rabbitmq:rabbitmq
-      - redis:redis
-      - elasticsearch:elasticsearch
+    image: taccwma/frontera-portal:fded485
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
       - /var/www/frontera/portal/media:/srv/www/portal/server/media
       - /var/www/frontera/portal/static:/srv/www/portal/server/static
-    ports:
-      - 6000:6000
-      - 5555:5555
+    expose:
+      - "6000"
+      - "5555"
     stdin_open: true
     tty: true
     command: ['python3', './manage.py', 'runserver', '0.0.0.0:6000']
     container_name: frontera_django
-    hostname: frontera_django
-    networks:
-      - frontera_net
+
 volumes:
   frontera_redis_data:
   frontera_es_data:
   frontera_rabbitmq_data:
-networks:
-  frontera_net:
+
