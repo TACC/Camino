@@ -67,7 +67,7 @@ services:
     container_name: frontera_rabbitmq
 
   websockets:
-    image: taccwma/frontera-portal:fded485
+    image: taccwma/frontera-portal:2cac1d0
     expose:
       - "9000"
     container_name: frontera_websockets
@@ -77,7 +77,7 @@ services:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
 
   core:
-    image: taccwma/frontera-portal:fded485
+    image: taccwma/frontera-portal:2cac1d0
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
       - /var/www/frontera/portal/media:/srv/www/portal/server/media
