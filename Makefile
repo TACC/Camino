@@ -23,21 +23,21 @@ deploy-all:
 
 
 .PHONY: deploy-dev-core
-deploy-core:
+deploy-dev-core:
 	docker-compose -f docker-compose-dev.yml pull core
 	docker-compose -f docker-compose-dev.yml stop core
 	docker-compose -f docker-compose-dev.yml up -d
 	docker exec frontera_django python3 manage.py collectstatic --noinput
 
 .PHONY: deploy-dev-cms
-deploy-cms:
+deploy-dev-cms:
 	docker-compose -f docker-compose-dev.yml pull cms
 	docker-compose -f docker-compose-dev.yml stop cms
 	docker-compose -f docker-compose-dev.yml up -d
 	docker exec frontera_cms python3 manage.py collectstatic --noinput
 
 .PHONY: deploy-dev-all
-deploy-all:
+deploy-dev-all:
 	docker-compose -f docker-compose-dev.yml pull
 	docker-compose -f docker-compose-dev.yml stop
 	docker-compose -f docker-compose-dev.yml up -d
