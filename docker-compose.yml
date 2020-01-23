@@ -22,6 +22,7 @@ services:
       - /var/www/frontera/cms/media:/var/www/frontera/cms/media
       - /var/www/frontera/portal/media:/var/www/frontera/portal/media
       - /var/www/frontera/portal/static:/var/www/frontera/portal/static
+      - /var/www/frontera/docs:/var/www/frontera/docs
     ports:
       - 80:80
       - 443:443
