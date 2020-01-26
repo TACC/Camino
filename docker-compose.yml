@@ -78,7 +78,7 @@ services:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
 
   core:
-    image: taccwma/frontera-portal:3b39c78
+    image: taccwma/frontera-portal:b0c4eb5
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
       - /var/www/frontera/portal/media:/srv/www/portal/server/media
