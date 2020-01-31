@@ -84,6 +84,8 @@ services:
 
   workers:
     image: taccwma/frontera-portal:latest
+    volumes:
+      - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
     command: "celery -A portal worker -Q default,indexing,files,api,onboard --concurrency=10"
     container_name: frontera_workers
     restart: always
