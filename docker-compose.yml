@@ -7,10 +7,9 @@ services:
       - ./conf/uwsgi/uwsgi.ini:/code/uwsgi.ini
       - /var/www/frontera/cms/static:/code/static
       - /var/www/frontera/cms/media:/code/media
-    expose:
-      - "8000"
     command: ["uwsgi", "--ini", "uwsgi.ini"]
     container_name: frontera_cms
+    restart: always
 
   nginx:
     image: nginx
@@ -27,11 +26,13 @@ services:
       - 80:80
       - 443:443
     container_name: frontera_nginx
+    restart: always
 
   memcached:
     image: memcached:latest
     command: ["-m", "512m"]
     container_name: frontera_memcached
+    restart: always
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
@@ -43,39 +44,31 @@ services:
     volumes:
       - ./conf/es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - frontera_es_data:/usr/share/elasticsearch/data
-    expose:
-      - "9200"
     container_name: frontera_elasticsearch
+    restart: always
 
   redis:
     image: redis:5.0
     volumes:
       - frontera_redis_data:/data
-    expose:
-      - "6379"
     container_name: frontera_redis
+    restart: always
 
   rabbitmq:
     image: rabbitmq:3.7.17-management
     volumes:
       - frontera_rabbitmq_data:/var/lib/rabbitmq/mnesia/rabbit@frontera_rabbitmq
     env_file: ./conf/rabbitmq/rabbitmq.env
-    expose:
-      - "5672"
-      - "5673"
-      - "15673"
-      - "15672"
     container_name: frontera_rabbitmq
+    restart: always
 
   websockets:
     image: taccwma/frontera-portal:latest
-    expose:
-      - "9000"
-    container_name: frontera_websockets
-    hostname: frontera_websockets
     command: "uwsgi --chdir /srv/www/portal/server --gevent 1000 --workers=2 --http-websockets  --http-socket=:9000 --module portal.wsgi_websocket:application"
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
+    container_name: frontera_websockets
+    restart: always
 
   core:
     image: taccwma/frontera-portal:latest
@@ -83,13 +76,17 @@ services:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
       - /var/www/frontera/portal/media:/srv/www/portal/server/media
       - /var/www/frontera/portal/static:/srv/www/portal/server/static
-    expose:
-      - "6000"
-      - "5555"
     stdin_open: true
     tty: true
     command: ['python3', './manage.py', 'runserver', '0.0.0.0:6000']
     container_name: frontera_django
+    restart: always
+
+  workers:
+    image: taccwma/frontera-portal:latest
+    command: "celery -A portal worker -Q default,indexing,files,api,onboard --concurrency=10"
+    container_name: frontera_workers
+    restart: always
 
 #  docs:
 #    image: taccwma/frontera-docs:0c602c1
