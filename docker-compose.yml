@@ -15,8 +15,11 @@ services:
     image: nginx
     volumes:
       - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
-      #- ./conf/nginx/gzip.conf:/etc/nginx/conf/gzip.conf
-      - /etc/ssl/certs:/etc/ssl/certs
+      - /etc/ssl/certs/frontera-portal.tacc.utexas.edu.cer:/etc/ssl/certs/frontera-portal.tacc.utexas.edu.cer
+      - /etc/ssl/private/frontera-portal.tacc.utexas.edu.key:/etc/ssl/certs/frontera-portal.tacc.utexas.edu.key
+      - /etc/ssl/certs/fronteraweb.tacc.utexas.edu.cer:/etc/ssl/certs/fronteraweb.tacc.utexas.edu.cer
+      - /etc/ssl/private/fronteraweb.tacc.utexas.edu.key:/etc/ssl/certs/fronteraweb.tacc.utexas.edu.key
+      - /etc/ssl/dhparam.pem:/etc/ssl/dhparam.pem
       - /var/www/frontera/cms/static:/var/www/frontera/cms/static
       - /var/www/frontera/cms/media:/var/www/frontera/cms/media
       - /var/www/frontera/portal/media:/var/www/frontera/portal/media
@@ -30,7 +33,7 @@ services:
 
   memcached:
     image: memcached:latest
-    command: ["-m", "512m"]
+    command: ["-m", "1024m"]
     container_name: frontera_memcached
     restart: always
 
@@ -39,7 +42,7 @@ services:
     ulimits:
       memlock: -1
     environment:
-      - ES_HEAP_SIZE:1g
+      - ES_HEAP_SIZE:2g
       - discovery.type=single-node
     volumes:
       - ./conf/es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
@@ -90,15 +93,7 @@ services:
     container_name: frontera_workers
     restart: always
 
-#  docs:
-#    image: taccwma/frontera-docs:0c602c1
-#    volumes:
-#      - /var/www/frontera/docs:/docs/site
-#    command: ["mkdocs", "build"]
-#    container_name: frontera_docs
-
 volumes:
   frontera_redis_data:
   frontera_es_data:
   frontera_rabbitmq_data:
-
