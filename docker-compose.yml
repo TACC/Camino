@@ -1,7 +1,7 @@
 version: "3"
 services:
   cms:
-    image: taccwma/frontera-cms:latest
+    image: taccwma/frontera-cms:445ec0e
     volumes:
       - ./conf/cms/secrets.py:/code/taccsite_cms/secrets.py
       - ./conf/uwsgi/uwsgi.ini:/code/uwsgi.ini
@@ -66,7 +66,7 @@ services:
     restart: always
 
   websockets:
-    image: taccwma/frontera-portal:latest
+    image: taccwma/frontera-portal:635f8a4
     command: "uwsgi --chdir /srv/www/portal/server --gevent 1000 --workers=2 --http-websockets  --http-socket=:9000 --module portal.wsgi_websocket:application"
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
@@ -74,7 +74,7 @@ services:
     restart: always
 
   core:
-    image: taccwma/frontera-portal:latest
+    image: taccwma/frontera-portal:635f8a4
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
       - /var/www/frontera/portal/media:/srv/www/portal/server/media
@@ -86,7 +86,7 @@ services:
     restart: always
 
   workers:
-    image: taccwma/frontera-portal:latest
+    image: taccwma/frontera-portal:635f8a4
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
     command: "celery -A portal worker -Q default,indexing,files,api,onboard --concurrency=10"
