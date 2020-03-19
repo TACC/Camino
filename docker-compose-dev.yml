@@ -89,6 +89,13 @@ services:
     container_name: frontera_workers
     restart: always
 
+  docs:
+    image: taccwma/frontera-docs:latest
+    volumes:
+      - /var/www/frontera/docs:/docs/site
+    command: ["mkdocs", "build"]
+    container_name: frontera_docs
+
 volumes:
   frontera_redis_data:
   frontera_es_data:
