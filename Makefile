@@ -15,12 +15,11 @@ deploy-cms:
 	docker exec frontera_cms python3 manage.py collectstatic --noinput
 	docker-compose restart nginx
 
-# .PHONY: deploy-docs
-# deploy-docs:
-# 	docker-compose pull docs
-# 	docker-compose stop docs
-# 	docker-compose up -d
-# 	docker restart frontera_nginx
+.PHONY: deploy-docs
+deploy-docs:
+	docker-compose pull docs
+	docker-compose run docs
+	docker-compose restart nginx
 
 .PHONY: deploy-all
 deploy-all:
@@ -48,12 +47,11 @@ deploy-dev-cms:
 	docker exec frontera_cms python3 manage.py collectstatic --noinput
 	docker-compose -f docker-compose-dev.yml restart nginx
 
-# .PHONY: deploy-dev-docs
-# deploy-dev-docs:
-# 	docker-compose -f docker-compose-dev.yml pull docs
-# 	docker-compose -f docker-compose-dev.yml stop docs
-# 	docker-compose -f docker-compose-dev.yml up -d
-# 	docker-compose -f docker-compose-dev.yml restart nginx
+.PHONY: deploy-dev-docs
+deploy-dev-docs:
+	docker-compose -f docker-compose-dev.yml pull docs
+	docker-compose -f docker-compose-dev.yml run docs
+	docker-compose -f docker-compose-dev.yml restart nginx
 
 .PHONY: deploy-dev-all
 deploy-dev-all:
