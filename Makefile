@@ -19,7 +19,7 @@ deploy-cms:
 deploy-docs:
 	docker-compose pull docs
 	docker-compose run docs
-	docker restart frontera_nginx
+	docker-compose restart nginx
 
 .PHONY: deploy-all
 deploy-all:
