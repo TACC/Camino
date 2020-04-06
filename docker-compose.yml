@@ -15,8 +15,9 @@ services:
     image: nginx
     volumes:
       - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - /etc/ssl/certs/frontera-portal.tacc.utexas.edu.cer:/etc/ssl/certs/frontera-portal.tacc.utexas.edu.cer
-      - /etc/ssl/private/frontera-portal.tacc.utexas.edu.key:/etc/ssl/certs/frontera-portal.tacc.utexas.edu.key
+      - ./conf/nginx/fronteraweb.tacc.utexas.edu.server.conf:/etc/nginx/conf.d/fronteraweb.tacc.utexas.edu.server.conf
+      - /etc/ssl/certs/frontera-portal.tacc.utexas.edu.cer:/etc/ssl/certs/portal.cer
+      - /etc/ssl/private/frontera-portal.tacc.utexas.edu.key:/etc/ssl/certs/portal.key
       - /etc/ssl/certs/fronteraweb.tacc.utexas.edu.cer:/etc/ssl/certs/fronteraweb.tacc.utexas.edu.cer
       - /etc/ssl/private/fronteraweb.tacc.utexas.edu.key:/etc/ssl/certs/fronteraweb.tacc.utexas.edu.key
       - /etc/ssl/dhparam.pem:/etc/ssl/dhparam.pem
