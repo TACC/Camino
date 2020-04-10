@@ -13,10 +13,13 @@ A compose file exists for each environment to orchestrate deployments. Each appl
 Setup:
 Clone the Camino repo to the path `/opt/{project_name}`
 
-Add At the root of the cloned Camino repo, create a file named `compose_file` and add the name of the docker-compose yml that matches the environment being set-up.
-  Ex. To manage and deploy dev, use the string `docker-compose.dev.yml`
+Add At the root of the cloned Camino repo, create the env file `.env` and add the name of the env file to be used for to manage deployments. The env files are named according the deployment environment they manage, like `dev.env, pprd.env, prod.env` and live in the directory `conf/camino`. With the env file set, make will load the environment variables and pass them to the compose file.
 
-To deploy changes to a new service with Camino, the image name and tag (or digest) for the service should be set in the appropriate compose file. This means that the image must be pre-built and its tag or digest known before deployment.
+Ex. To manage and deploy dev, use the filename `dev.env` 
+
+This file can be used to [populate values in the compose file](https://docs.docker.com/compose/environment-variables/)
+
+To deploy changes to a service, the image name and tag (or digest) for the service should be set in the appropriate compose file (or, if using a var, the matching env file in `conf/camino`). This means that the image must be pre-built and its tag or digest known before deployment.
 
 For example, to deploy a new pre-built cms image to production, the image in docker-compose.yml would be updated like below:
 
