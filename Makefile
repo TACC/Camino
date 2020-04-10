@@ -1,5 +1,7 @@
-COMPOSE_FILE ?= $(shell cat ./compose_file)
-DOCKER_COMPOSE :=  docker-compose -f $(COMPOSE_FILE)
+#!make
+ENV_FILE ?= ./conf/camino/$(shell cat .env)
+include $(ENV_FILE)
+DOCKER_COMPOSE :=  docker-compose -f $(COMPOSE_FILE) --env-file=$(ENV_FILE)
 
 .PHONY: deploy-core
 deploy-core:
