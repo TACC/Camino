@@ -13,9 +13,9 @@ A compose file exists for each environment to orchestrate deployments. Each appl
 Setup:
 Clone the Camino repo to the path `/opt/{project_name}`
 
-Add At the root of the cloned Camino repo, create the env file `.env` and add the name of the env file to be used for to manage deployments. The env files are named according the deployment environment they manage, like `dev.env, pprd.env, prod.env` and live in the directory `conf/camino`. With the env file set, make will load the environment variables and pass them to the compose file.
+At the root of the cloned project create the env file `.env` and add the name of the environment file to be used to manage deployments. The env files are named according the deployment environment they manage, like `dev.env, pprd.env, prod.env` and live in the directory `conf/camino`. With the env file set, make will load the environment variables and pass them to the compose file.
 
-Ex. To manage and deploy dev, use the filename `dev.env` 
+Ex. To manage and deploy dev, use the filename `dev.env`, this file will be passed to docker-compose with `--env-file=./conf/camino/dev.env`
 
 This file can be used to [populate values in the compose file](https://docs.docker.com/compose/environment-variables/)
 
