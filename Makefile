@@ -1,64 +1,35 @@
+#!make
+ENV_FILE ?= ./conf/camino/$(shell cat .env)
+include $(ENV_FILE)
+DOCKER_COMPOSE :=  docker-compose -f $(COMPOSE_FILE) --env-file=$(ENV_FILE)
 
 .PHONY: deploy-core
 deploy-core:
-	docker-compose pull core
-	docker-compose stop core
-	docker-compose up -d
+	$(DOCKER_COMPOSE) pull core
+	$(DOCKER_COMPOSE) stop core
+	$(DOCKER_COMPOSE) up -d
 	docker exec frontera_django python3 manage.py collectstatic --noinput
-	docker-compose restart nginx
+	$(DOCKER_COMPOSE) restart nginx
 
 .PHONY: deploy-cms
 deploy-cms:
-	docker-compose pull cms
-	docker-compose stop cms
-	docker-compose up -d
+	$(DOCKER_COMPOSE) pull cms
+	$(DOCKER_COMPOSE) stop cms
+	$(DOCKER_COMPOSE) up -d
 	docker exec frontera_cms python3 manage.py collectstatic --noinput
-	docker-compose restart nginx
+	$(DOCKER_COMPOSE) restart nginx
 
 .PHONY: deploy-docs
 deploy-docs:
-	docker-compose pull docs
-	docker-compose run docs
-	docker-compose restart nginx
+	$(DOCKER_COMPOSE) pull docs
+	$(DOCKER_COMPOSE) run docs
+	$(DOCKER_COMPOSE) restart nginx
 
 .PHONY: deploy-all
 deploy-all:
-	docker-compose pull
-	docker-compose stop
-	docker-compose up -d
+	$(DOCKER_COMPOSE) pull
+	$(DOCKER_COMPOSE) stop
+	$(DOCKER_COMPOSE) up -d
 	docker exec frontera_django python3 manage.py collectstatic --noinput
 	docker exec frontera_cms python3 manage.py collectstatic --noinput
-	docker-compose restart nginx
-
-
-.PHONY: deploy-dev-core
-deploy-dev-core:
-	docker-compose -f docker-compose-dev.yml pull core
-	docker-compose -f docker-compose-dev.yml stop core
-	docker-compose -f docker-compose-dev.yml up -d
-	docker exec frontera_django python3 manage.py collectstatic --noinput
-	docker-compose -f docker-compose-dev.yml restart nginx
-
-.PHONY: deploy-dev-cms
-deploy-dev-cms:
-	docker-compose -f docker-compose-dev.yml pull cms
-	docker-compose -f docker-compose-dev.yml stop cms
-	docker-compose -f docker-compose-dev.yml up -d
-	docker exec frontera_cms python3 manage.py collectstatic --noinput
-	docker-compose -f docker-compose-dev.yml restart nginx
-
-.PHONY: deploy-dev-docs
-deploy-dev-docs:
-	docker-compose -f docker-compose-dev.yml pull docs
-	docker-compose -f docker-compose-dev.yml run docs
-	docker-compose -f docker-compose-dev.yml restart nginx
-
-.PHONY: deploy-dev-all
-deploy-dev-all:
-	docker-compose -f docker-compose-dev.yml pull
-	docker-compose -f docker-compose-dev.yml stop
-	docker-compose -f docker-compose-dev.yml up -d
-	docker exec frontera_django python3 manage.py collectstatic --noinput
-	docker exec frontera_cms python3 manage.py collectstatic --noinput
-	docker-compose -f docker-compose-dev.yml restart nginx
-
+	$(DOCKER_COMPOSE) restart nginx

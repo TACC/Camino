@@ -1,7 +1,7 @@
 version: "3"
 services:
   cms:
-    image: taccwma/frontera-cms:445ec0e
+    image: taccwma/frontera-cms:latest
     volumes:
       - ./conf/cms/secrets.py:/code/taccsite_cms/secrets.py
       - ./conf/uwsgi/uwsgi.ini:/code/uwsgi.ini
@@ -15,11 +15,8 @@ services:
     image: nginx
     volumes:
       - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./conf/nginx/fronteraweb.tacc.utexas.edu.server.conf:/etc/nginx/conf.d/fronteraweb.tacc.utexas.edu.server.conf
-      - /etc/ssl/certs/frontera-portal.tacc.utexas.edu.cer:/etc/ssl/certs/portal.cer
-      - /etc/ssl/private/frontera-portal.tacc.utexas.edu.key:/etc/ssl/certs/portal.key
-      - /etc/ssl/certs/fronteraweb.tacc.utexas.edu.cer:/etc/ssl/certs/fronteraweb.tacc.utexas.edu.cer
-      - /etc/ssl/private/fronteraweb.tacc.utexas.edu.key:/etc/ssl/certs/fronteraweb.tacc.utexas.edu.key
+      - /etc/ssl/certs/dev.fronteraweb.tacc.utexas.edu.cer:/etc/ssl/certs/portal.cer
+      - /etc/ssl/certs/dev.fronteraweb.tacc.utexas.edu.key:/etc/ssl/private/portal.key
       - /etc/ssl/dhparam.pem:/etc/ssl/dhparam.pem
       - /var/www/frontera/cms/static:/var/www/frontera/cms/static
       - /var/www/frontera/cms/media:/var/www/frontera/cms/media
@@ -34,7 +31,7 @@ services:
 
   memcached:
     image: memcached:latest
-    command: ["-m", "1024m"]
+    command: ["-m", "512m"]
     container_name: frontera_memcached
     restart: always
 
@@ -43,7 +40,7 @@ services:
     ulimits:
       memlock: -1
     environment:
-      - ES_HEAP_SIZE:2g
+      - ES_HEAP_SIZE:1g
       - discovery.type=single-node
     volumes:
       - ./conf/es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
@@ -95,7 +92,7 @@ services:
     restart: always
 
   docs:
-    image: taccwma/frontera-docs:latest-master
+    image: taccwma/frontera-docs:latest
     volumes:
       - /var/www/frontera/docs:/docs/site
     command: ["mkdocs", "build"]

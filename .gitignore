@@ -36,5 +36,8 @@ elasticsearch.yml
 *secrets.py
 *.secret
 *settings_secret.py
-*nginx.conf
+.env
+camino_env
+compose_file
+make_env
 
