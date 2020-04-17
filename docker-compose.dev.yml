@@ -9,6 +9,8 @@ services:
       - /var/www/frontera/cms/media:/code/media
     command: ["uwsgi", "--ini", "uwsgi.ini"]
     container_name: frontera_cms
+    logging:
+        driver: syslog
     restart: always
 
   nginx:
@@ -27,6 +29,8 @@ services:
       - 80:80
       - 443:443
     container_name: frontera_nginx
+    logging:
+        driver: syslog
     restart: always
 
   memcached:
@@ -53,6 +57,8 @@ services:
     volumes:
       - frontera_redis_data:/data
     container_name: frontera_redis
+    logging:
+        driver: syslog
     restart: always
 
   rabbitmq:
@@ -61,6 +67,8 @@ services:
       - frontera_rabbitmq_data:/var/lib/rabbitmq/mnesia/rabbit@frontera_rabbitmq
     env_file: ./conf/rabbitmq/rabbitmq.env
     container_name: frontera_rabbitmq
+    logging:
+        driver: syslog
     restart: always
 
   websockets:
@@ -69,6 +77,8 @@ services:
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
     container_name: frontera_websockets
+    logging:
+        driver: syslog
     restart: always
 
   core:
@@ -81,6 +91,8 @@ services:
     tty: true
     command: ['python3', './manage.py', 'runserver', '0.0.0.0:6000']
     container_name: frontera_django
+    logging:
+        driver: syslog
     restart: always
 
   workers:
@@ -89,6 +101,8 @@ services:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
     command: "celery -A portal worker -Q default,indexing,files,api,onboard --concurrency=10"
     container_name: frontera_workers
+    logging:
+        driver: syslog
     restart: always
 
   docs:
@@ -97,6 +111,8 @@ services:
       - /var/www/frontera/docs:/docs/site
     command: ["mkdocs", "build"]
     container_name: frontera_docs
+    logging:
+        driver: syslog
 
 volumes:
   frontera_redis_data:
