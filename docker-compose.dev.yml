@@ -65,7 +65,7 @@ services:
 
   websockets:
     image: taccwma/frontera-portal:${FRONTERA_PORTAL_TAG}
-    command: "uwsgi --chdir /srv/www/portal/server --gevent 1000 --workers=2 --http-websockets  --http-socket=:9000 --module portal.wsgi_websocket:application"
+    command: uwsgi --ini /srv/www/portal/conf/uwsgi/uwsgi_websocket.ini
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
     container_name: frontera_websockets
