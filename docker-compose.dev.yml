@@ -10,7 +10,9 @@ services:
     command: ["uwsgi", "--ini", "uwsgi.ini"]
     container_name: frontera_cms
     logging:
-        driver: syslog
+      driver: syslog
+      options:
+        tag: portal_cms
     restart: always
 
   nginx:
@@ -30,7 +32,9 @@ services:
       - 443:443
     container_name: frontera_nginx
     logging:
-        driver: syslog
+      driver: syslog
+      options:
+        tag: portal_nginx
     restart: always
 
   memcached:
@@ -58,7 +62,9 @@ services:
       - frontera_redis_data:/data
     container_name: frontera_redis
     logging:
-        driver: syslog
+      driver: syslog
+      options:
+        tag: portal_redis
     restart: always
 
   rabbitmq:
@@ -68,7 +74,9 @@ services:
     env_file: ./conf/rabbitmq/rabbitmq.env
     container_name: frontera_rabbitmq
     logging:
-        driver: syslog
+      driver: syslog
+      options:
+        tag: portal_rabbitmq
     restart: always
 
   websockets:
@@ -78,7 +86,9 @@ services:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
     container_name: frontera_websockets
     logging:
-        driver: syslog
+      driver: syslog
+      options:
+        tag: portal_websockets
     restart: always
 
   core:
@@ -92,7 +102,9 @@ services:
     command: ['python3', './manage.py', 'runserver', '0.0.0.0:6000']
     container_name: frontera_django
     logging:
-        driver: syslog
+      driver: syslog
+      options:
+        tag: portal_django
     restart: always
 
   workers:
@@ -102,7 +114,9 @@ services:
     command: "celery -A portal worker -Q default,indexing,files,api,onboard --concurrency=10"
     container_name: frontera_workers
     logging:
-        driver: syslog
+      driver: syslog
+      options:
+        tag: portal_workers
     restart: always
 
   docs:
@@ -112,7 +126,9 @@ services:
     command: ["mkdocs", "build"]
     container_name: frontera_docs
     logging:
-        driver: syslog
+      driver: syslog
+      options:
+        tag: portal_user_guide
 
 volumes:
   frontera_redis_data:
