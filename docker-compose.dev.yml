@@ -4,7 +4,7 @@ services:
     image: taccwma/frontera-cms:latest
     volumes:
       - ./conf/cms/secrets.py:/code/taccsite_cms/secrets.py
-      - ./conf/uwsgi/uwsgi.ini:/code/uwsgi.ini
+      - ./conf/uwsgi/uwsgi_cms.ini:/code/uwsgi.ini
       - /var/www/frontera/cms/static:/code/static
       - /var/www/frontera/cms/media:/code/media
     command: ["uwsgi", "--ini", "uwsgi.ini"]
