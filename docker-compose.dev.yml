@@ -19,6 +19,7 @@ services:
     image: nginx
     volumes:
       - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./conf/uwsgi/uwsgi_params:/etc/nginx/uwsgi_params
       - /etc/ssl/certs/dev.fronteraweb.tacc.utexas.edu.cer:/etc/ssl/certs/portal.cer
       - /etc/ssl/certs/dev.fronteraweb.tacc.utexas.edu.key:/etc/ssl/private/portal.key
       - /etc/ssl/dhparam.pem:/etc/ssl/dhparam.pem
@@ -81,9 +82,10 @@ services:
 
   websockets:
     image: taccwma/frontera-portal:${FRONTERA_PORTAL_TAG}
-    command: uwsgi --ini /srv/www/portal/conf/uwsgi/uwsgi_websocket.ini
+    command: uwsgi --ini /srv/www/portal/server/conf/uwsgi/uwsgi_websocket.ini
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
+      - ./conf/uwsgi/uwsgi_websocket.ini:/srv/www/portal/server/conf/uwsgi/uwsgi_websocket.ini
     container_name: frontera_websockets
     logging:
       driver: syslog
@@ -97,9 +99,10 @@ services:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
       - /var/www/frontera/portal/media:/srv/www/portal/server/media
       - /var/www/frontera/portal/static:/srv/www/portal/server/static
+      - ./conf/uwsgi/uwsgi_core.ini:/srv/www/portal/server/conf/uwsgi/uwsgi_core.ini
     stdin_open: true
     tty: true
-    command: ['python3', './manage.py', 'runserver', '0.0.0.0:6000']
+    command: uwsgi --ini /srv/www/portal/server/conf/uwsgi/uwsgi_core.ini
     container_name: frontera_django
     logging:
       driver: syslog
