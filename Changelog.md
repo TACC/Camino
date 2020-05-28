@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0] - 2020-05-26
+## [1.1.0] - 2020-05-27
+### Changed
+- Enabled uwsgi on Django containers.
+
+### Fixed
+- Added a migrate step to Django deploy pipeline.
+
+## [1.0.0] - 2020-05-06
 v1.0.0 Production release as of May 6, 2020.
 
 [unreleased]: https://github.com/TACC/Camino/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/TACC/Camino/releases/tag/v1.0.0
-
