@@ -44,19 +44,6 @@ services:
     container_name: frontera_memcached
     restart: always
 
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
-    ulimits:
-      memlock: -1
-    environment:
-      - ES_HEAP_SIZE:1g
-      - discovery.type=single-node
-    volumes:
-      - ./conf/es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - frontera_es_data:/usr/share/elasticsearch/data
-    container_name: frontera_elasticsearch
-    restart: always
-
   redis:
     image: redis:5.0
     volumes:
