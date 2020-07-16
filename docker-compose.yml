@@ -75,8 +75,8 @@ services:
     command: 'daphne -b 0.0.0.0 -p 9000 -e ssl:443:privateKey=/etc/ssl/private/portal.key:certKey=/etc/ssl/certs/portal.cer --root-path=/srv/www/portal/server --access-log - --proxy-headers portal.asgi:application'
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
-      - /etc/ssl/certs/dev.fronteraweb.tacc.utexas.edu.cer:/etc/ssl/certs/portal.cer
-      - /etc/ssl/certs/dev.fronteraweb.tacc.utexas.edu.key:/etc/ssl/private/portal.key
+      - /etc/ssl/certs/frontera-portal.tacc.utexas.edu.cer:/etc/ssl/certs/portal.cer
+      - /etc/ssl/private/frontera-portal.tacc.utexas.edu.key:/etc/ssl/private/portal.key
     container_name: frontera_websockets
     logging:
       driver: syslog
