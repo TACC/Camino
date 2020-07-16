@@ -70,19 +70,6 @@ services:
         tag: portal_rabbitmq
     restart: always
 
-  websockets:
-    image: taccwma/frontera-portal:${FRONTERA_PORTAL_TAG}
-    command: uwsgi --ini /srv/www/portal/server/conf/uwsgi/uwsgi_websocket.ini
-    volumes:
-      - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
-      - ./conf/uwsgi/uwsgi_websocket.ini:/srv/www/portal/server/conf/uwsgi/uwsgi_websocket.ini
-    container_name: frontera_websockets
-    logging:
-      driver: syslog
-      options:
-        tag: portal_websockets
-    restart: always
-
   core:
     image: taccwma/frontera-portal:${FRONTERA_PORTAL_TAG}
     volumes:
