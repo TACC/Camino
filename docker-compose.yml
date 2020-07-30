@@ -47,19 +47,6 @@ services:
     container_name: frontera_memcached
     restart: always
 
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
-    ulimits:
-      memlock: -1
-    environment:
-      - ES_HEAP_SIZE:2g
-      - discovery.type=single-node
-    volumes:
-      - ./conf/es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - frontera_es_data:/usr/share/elasticsearch/data
-    container_name: frontera_elasticsearch
-    restart: always
-
   redis:
     image: redis:5.0
     volumes:
@@ -85,10 +72,11 @@ services:
 
   websockets:
     image: taccwma/frontera-portal:${FRONTERA_PORTAL_TAG}
-    command: uwsgi --ini /srv/www/portal/server/conf/uwsgi/uwsgi_websocket.ini
+    command: 'daphne -b 0.0.0.0 -p 9000 -e ssl:443:privateKey=/etc/ssl/private/portal.key:certKey=/etc/ssl/certs/portal.cer --root-path=/srv/www/portal/server --access-log - --proxy-headers portal.asgi:application'
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
-      - ./conf/uwsgi/uwsgi_websocket.ini:/srv/www/portal/server/conf/uwsgi/uwsgi_websocket.ini
+      - /etc/ssl/certs/frontera-portal.tacc.utexas.edu.cer:/etc/ssl/certs/portal.cer
+      - /etc/ssl/private/frontera-portal.tacc.utexas.edu.key:/etc/ssl/private/portal.key
     container_name: frontera_websockets
     logging:
       driver: syslog
