@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.0.0] - 2020-08-11: ASGI Websockets
+## [1.2.0] - 2020-08-11: ASGI Websockets
 ### Changed
 - FP-391: Replace uwsgi in websocket containers with daphne asgi
 
@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2020-05-06
 v1.0.0 Production release as of May 6, 2020.
 
-[unreleased]: https://github.com/TACC/Camino/compare/v1.1.0...HEAD
+[unreleased]: https://github.com/TACC/Camino/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/TACC/Camino/releases/tag/v1.2.0
 [1.1.0]: https://github.com/TACC/Camino/releases/tag/v1.1.0
 [1.0.0]: https://github.com/TACC/Camino/releases/tag/v1.0.0
