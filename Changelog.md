@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2020-08-11: ASGI Websockets
+### Changed
+- FP-391: Replace uwsgi in websocket containers with daphne asgi
+
+### Fixed
+- Pin CMS release to working version in dev
+
+### Removed
+- Remove local elasticsearch configuration
+
 ## [1.1.0] - 2020-05-27
 ### Changed
 - Enabled uwsgi on Django containers.
