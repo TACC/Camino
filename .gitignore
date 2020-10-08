@@ -36,6 +36,7 @@ elasticsearch.yml
 *secrets.py
 *.secret
 *settings_secret.py
+*settings_secret.env
 .env
 camino_env
 compose_file

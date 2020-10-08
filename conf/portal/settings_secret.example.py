@@ -1,3 +1,4 @@
+import os
 """
 All secret values (eg. configurable per project) - usually stored in UT stache.
 """
@@ -26,12 +27,12 @@ _SYSTEM_MONITOR_DISPLAY_LIST = ['frontera.tacc.utexas.edu', 'stampede2.tacc.utex
 ########################
 
 # Database.
-_DJANGO_DB_ENGINE= 'django.db.backends.postgresql'
-_DJANGO_DB_HOST= 'frontera_prtl_postgres'
-_DJANGO_DB_PORT= '5432'
-_DJANGO_DB_NAME= 'dev'
-_DJANGO_DB_USER= 'dev'
-_DJANGO_DB_PASSWORD= 'dev'
+_DJANGO_DB_ENGINE = os.environ.get('DB_ENGINE', 'django.db.backends.postgresql')
+_DJANGO_DB_HOST= os.environ.get('DB_HOST', 'frontera_prtl_postgres')
+_DJANGO_DB_PORT= os.environ.get('DB_PORT', '5432')
+_DJANGO_DB_NAME= os.environ.get('DB_NAME', 'dev')
+_DJANGO_DB_USER= os.environ.get('DB_USER', 'dev')
+_DJANGO_DB_PASSWORD= os.environ.get('DB_PASSWORD', 'dev')
 
 # TAS Authentication.
 _TAS_URL='https://tas-dev.tacc.utexas.edu/api'
@@ -113,7 +114,8 @@ _ES_HOSTS = 'frontera_prtl_elasticsearch'
 _PORTAL_APPS_METADATA_NAMES = ['portal_apps']
 _PORTAL_ALLOCATION = 'TACC-ACI'
 
-# NOTE: set _WH_BASE_URL to ngrok redirect for local dev testing (i.e. _WH_BASE_URL = 'https://12345.ngrock.io', see https://ngrok.com/)
+# NOTE: set _WH_BASE_URL to ngrok redirect for local dev testing 
+# (i.e. _WH_BASE_URL = 'https://12345.ngrock.io', see https://ngrok.com/)
 _WH_BASE_URL = ''
 
 ########################
