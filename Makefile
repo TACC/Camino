@@ -82,4 +82,4 @@ collectstatic:
 .PHONY: dbdump
 dbdump:
 	$(eval FILE_NAME := $(service)_$(shell date --iso=seconds).sql)
-	$(DOCKER_COMPOSE) exec pg_dump --dbname=$(DB_NAME) --host=$(DB_HOST) --username=$(DB_NAME) --clean --no-owner > $(DB_DUMP_PATH)/$(FILE_NAME)
+	$(DOCKER_COMPOSE) run --no-deps --rm $(service) pg_dump --dbname=$(DB_NAME) --host=$(DB_HOST) --username=$(DB_USER) --clean --no-owner > $(DB_DUMP_PATH)/$(FILE_NAME)
