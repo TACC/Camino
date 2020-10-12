@@ -34,6 +34,7 @@ db.sqlite3-journal
 rabbitmq.env
 elasticsearch.yml
 *secrets.py
+*secrets.env
 *.secret
 *settings_secret.py
 *settings_secret.env
