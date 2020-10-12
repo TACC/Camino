@@ -1,5 +1,7 @@
 ENV_FILE ?= ./conf/camino/$(shell cat .env)
-include $(ENV_FILE)
+PORTAL_ENV ?= ./conf/portal/settings_secret.env
+CMS_ENV ?= ./conf/cms/secrets.env
+include $(ENV_FILE) $(PORTAL_ENV) $(CMS_ENV)
 DOCKER_COMPOSE :=  docker-compose -f $(COMPOSE_FILE) --env-file=$(ENV_FILE)
 DB_DUMP_PATH := /var/data/dbdump
 
@@ -82,4 +84,5 @@ collectstatic:
 .PHONY: dbdump
 dbdump:
 	$(eval FILE_NAME := $(service)_$(shell date --iso=seconds).sql)
-	$(DOCKER_COMPOSE) run --no-deps --rm $(service) pg_dump --dbname=$(DB_NAME) --host=$(DB_HOST) --username=$(DB_USER) --clean --no-owner > $(DB_DUMP_PATH)/$(FILE_NAME)
+	$(DOCKER_COMPOSE) run --no-deps --rm $(service) pg_dump --dbname=$($(service)_DB_NAME) --host=$($(service)_DB_HOST) --username=$($(service)_DB_USER) --clean --no-owner \
+	> $(DB_DUMP_PATH)/$(FILE_NAME)
