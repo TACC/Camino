@@ -75,11 +75,11 @@ deploy:
 
 .PHONY: migrate
 migrate:
-	$(DOCKER_COMPOSE) exec $(service) python manage.py migrate
+	$(DOCKER_COMPOSE) exec $(service) python3 manage.py migrate
 
 .PHONY: collectstatic
 collectstatic:
-	$(DOCKER_COMPOSE) exec $(service) python manage.py collectstatic --noinput
+	$(DOCKER_COMPOSE) exec $(service) python3 manage.py collectstatic --noinput
 
 .PHONY: dbdump
 dbdump:
