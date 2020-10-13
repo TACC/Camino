@@ -8,6 +8,7 @@ services:
       - /var/www/frontera/cms/static:/code/static
       - /var/www/frontera/cms/media:/code/media
     command: ["uwsgi", "--ini", "uwsgi.ini"]
+    env_file: ./conf/cms/secrets.env
     container_name: frontera_cms
     logging:
       driver: syslog
@@ -92,6 +93,7 @@ services:
     tty: true
     command: uwsgi --ini /srv/www/portal/server/conf/uwsgi/uwsgi_core.ini
     container_name: frontera_django
+    env_file: ./conf/portal/settings_secret.env
     logging:
       driver: syslog
       options:
