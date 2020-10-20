@@ -1,9 +1,6 @@
 ENV_FILE ?= ./conf/camino/$(shell cat .env)
-PORTAL_ENV ?= ./conf/portal/settings_secret.env
-CMS_ENV ?= ./conf/cms/secrets.env
-include $(ENV_FILE) $(PORTAL_ENV) $(CMS_ENV)
+include $(ENV_FILE)
 DOCKER_COMPOSE :=  docker-compose -f $(COMPOSE_FILE) --env-file=$(ENV_FILE)
-DB_DUMP_PATH := /var/data/dbdump
 
 .PHONY: deploy-core
 deploy-core:
@@ -62,7 +59,7 @@ pull:
 
 .PHONY: restart
 restart:
-	$(DOCKER_COMPOSE) stop $(service)
+	$(DOCKER_COMPOSE) down $(service)
 	$(DOCKER_COMPOSE) up -d $(service)
 	$(DOCKER_COMPOSE) restart nginx
 
@@ -80,9 +77,3 @@ migrate:
 .PHONY: collectstatic
 collectstatic:
 	$(DOCKER_COMPOSE) exec $(service) python3 manage.py collectstatic --noinput
-
-.PHONY: dbdump
-dbdump:
-	$(eval FILE_NAME := $(service)_$(shell date --iso=seconds).sql)
-	$(DOCKER_COMPOSE) run --no-deps --rm $(service) pg_dump --dbname=$($(service)_DB_NAME) --host=$($(service)_DB_HOST) --username=$($(service)_DB_USER) --clean --no-owner \
-	> $(DB_DUMP_PATH)/$(FILE_NAME)
