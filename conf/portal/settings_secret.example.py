@@ -1,4 +1,3 @@
-import os
 """
 All secret values (eg. configurable per project) - usually stored in UT stache.
 """
@@ -32,7 +31,7 @@ _DJANGO_DB_HOST= 'frontera_prtl_postgres'
 _DJANGO_DB_PORT= '5432'
 _DJANGO_DB_NAME= 'dev'
 _DJANGO_DB_USER= 'dev'
-_DJANGO_DB_PASSWORD= 'dev
+_DJANGO_DB_PASSWORD= 'dev'
 
 # TAS Authentication.
 _TAS_URL='https://tas-dev.tacc.utexas.edu/api'
