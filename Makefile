@@ -60,9 +60,8 @@ pull:
 
 .PHONY: restart
 restart:
-	$(DOCKER_COMPOSE) down $(service)
-	$(DOCKER_COMPOSE) up -d $(service)
-	$(DOCKER_COMPOSE) restart nginx
+	$(DOCKER_COMPOSE) stop $(service)
+	$(DOCKER_COMPOSE) up --force-recreate -d $(service)
 
 .PHONY: deploy
 deploy:
