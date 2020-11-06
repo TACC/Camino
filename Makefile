@@ -21,12 +21,6 @@ deploy-cms:
 	docker exec portal_cms python3 manage.py collectstatic --noinput
 	$(DOCKER_COMPOSE) restart nginx
 
-.PHONY: deploy-docs
-deploy-docs:
-	$(DOCKER_COMPOSE) pull docs
-	$(DOCKER_COMPOSE) run docs
-	$(DOCKER_COMPOSE) restart nginx
-
 .PHONY: deploy-all
 deploy-all:
 	$(DOCKER_COMPOSE) pull
