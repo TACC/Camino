@@ -1,0 +1,25 @@
+version: "3"
+services:
+  nginx:
+    volumes:
+      - /etc/ssl/sample.tacc.utexas.edu.cer:/etc/ssl/certs/portal.cer
+      - /etc/ssl/sample.tacc.utexas.edu.key:/etc/ssl/private/portal.key
+      - ./conf/camino/sample.server.conf:/etc/nginx/conf.d/sample.server.conf
+      - ./conf/camino/sample.location.conf:/etc/nginx/conf.d/sample.location.conf
+      - /var/www/portal/docs:/var/www/portal/docs
+
+  websockets:
+    volumes:
+      - /etc/ssl/sample.tacc.utexas.edu.cer:/etc/ssl/certs/portal.cer
+      - /etc/ssl/sample.tacc.utexas.edu.key:/etc/ssl/private/portal.key
+
+  docs:
+    image: taccwma/portal-user-guide:latest
+    volumes:
+      - /var/www/portal/docs:/docs/site
+    command: ["mkdocs", "build"]
+    container_name: portal_user_guide
+    logging:
+      driver: syslog
+      options:
+        tag: portal_user_guide

@@ -40,7 +40,7 @@ elasticsearch.yml
 *settings_secret.env
 .env
 conf/camino/*
-!conf/camino/sample.env
+!conf/camino/*sample.*
 camino_env
 compose_file
 make_env
