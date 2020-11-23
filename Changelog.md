@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2020-11-23: Portal-Agnostic Camino
+
+### Added
+- Added more `make` utility commands for dynamic service deployments and dbdumps
+
+### Changed
+- All references to "frontera" were changed to "portal"
+- Subscribing portals must now provide a minimal `.env` configuration file to use camino
+- `nginx.conf` dynamically loads provided `*.server.conf` and `*.location.conf` files
+- The `docker-compose` composition can be extended by providing a `docker-compose.overrides.yml`
+
 ## [1.2.0] - 2020-08-11: ASGI Websockets
 ### Changed
 - FP-391: Replace uwsgi in websocket containers with daphne asgi
@@ -27,7 +38,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2020-05-06
 v1.0.0 Production release as of May 6, 2020.
 
-[unreleased]: https://github.com/TACC/Camino/compare/v1.2.0...HEAD
+[unreleased]: https://github.com/TACC/Camino/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/TACC/Camino/releases/tag/v2.0.0
 [1.2.0]: https://github.com/TACC/Camino/releases/tag/v1.2.0
 [1.1.0]: https://github.com/TACC/Camino/releases/tag/v1.1.0
 [1.0.0]: https://github.com/TACC/Camino/releases/tag/v1.0.0
