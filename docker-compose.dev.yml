@@ -1,7 +1,7 @@
 version: "3"
 services:
   cms:
-    image: taccwma/frontera-cms:e0b13d2e
+    image: taccwma/frontera-cms:e0b13d2
     volumes:
       - ./conf/cms/secrets.py:/code/taccsite_cms/secrets.py
       - ./conf/uwsgi/uwsgi_cms.ini:/code/uwsgi.ini
