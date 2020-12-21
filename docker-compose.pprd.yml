@@ -1,7 +1,7 @@
 version: "3"
 services:
   cms:
-    image: taccwma/frontera-cms:445ec0e
+    image: taccwma/frontera-cms:3ff005c
     volumes:
       - ./conf/cms/secrets.py:/code/taccsite_cms/secrets.py
       - ./conf/uwsgi/uwsgi_cms.ini:/code/uwsgi.ini
@@ -111,7 +111,7 @@ services:
     restart: always
 
   docs:
-    image: taccwma/frontera-docs:latest-master
+    image: taccwma/frontera-docs:8849bc2
     volumes:
       - /var/www/frontera/docs:/docs/site
     command: ["mkdocs", "build"]
