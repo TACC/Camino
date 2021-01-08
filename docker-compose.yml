@@ -1,7 +1,7 @@
 version: "3"
 services:
   cms:
-    image: ${CMS_IMAGE}:${CMS_TAG}
+    image: ${CMS_IMAGE}
     volumes:
       - ./conf/cms/secrets.py:/code/taccsite_cms/secrets.py
       - ./conf/uwsgi/uwsgi_cms.ini:/code/uwsgi.ini
@@ -65,7 +65,7 @@ services:
     restart: always
 
   websockets:
-    image: ${PORTAL_IMAGE}:${PORTAL_TAG}
+    image: ${PORTAL_IMAGE}
     command: 'daphne -b 0.0.0.0 -p 9000 -e ssl:443:privateKey=/etc/ssl/private/portal.key:certKey=/etc/ssl/certs/portal.cer --root-path=/srv/www/portal/server --access-log - --proxy-headers portal.asgi:application'
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
@@ -77,7 +77,7 @@ services:
     restart: always
 
   core:
-    image: ${PORTAL_IMAGE}:${PORTAL_TAG}
+    image: ${PORTAL_IMAGE}
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
       - /var/www/portal/portal/media:/srv/www/portal/server/media
@@ -94,7 +94,7 @@ services:
     restart: always
 
   workers:
-    image: ${PORTAL_IMAGE}:${PORTAL_TAG}
+    image: ${PORTAL_IMAGE}
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
     command: "celery -A portal worker -Q default,indexing,files,api,onboard --concurrency=10"
