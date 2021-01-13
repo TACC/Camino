@@ -1,5 +1,5 @@
 #!make
-ENV_FILE ?= ./conf/camino/$(shell cat .env)
+ENV_FILE ?= ./.env
 include $(ENV_FILE)
 DOCKER_COMPOSE :=  docker-compose -f docker-compose.yml -f ./conf/camino/$(COMPOSE_FILE) --env-file=$(ENV_FILE)
 
