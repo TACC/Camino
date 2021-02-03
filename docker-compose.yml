@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 services:
   cms:
     image: ${CMS_IMAGE}:${CMS_TAG}

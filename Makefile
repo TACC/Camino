@@ -1,5 +1,5 @@
 #!make
-ENV_FILE ?= ./conf/camino/$(shell cat .env)
+ENV_FILE ?= ./.env
 include $(ENV_FILE)
 DOCKER_COMPOSE :=  docker-compose -f docker-compose.yml -f ./conf/camino/$(COMPOSE_FILE) --env-file=$(ENV_FILE)
 
@@ -30,6 +30,12 @@ deploy-all:
 	docker exec portal_django python3 manage.py collectstatic --noinput
 	docker exec portal_cms python3 manage.py migrate
 	docker exec portal_cms python3 manage.py collectstatic --noinput
+	$(DOCKER_COMPOSE) restart nginx
+
+.PHONY: deploy-docs
+deploy-docs:
+	$(DOCKER_COMPOSE) pull docs
+	$(DOCKER_COMPOSE) run docs
 	$(DOCKER_COMPOSE) restart nginx
 
 .PHONY: stop
