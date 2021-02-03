@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2020-02-03: Update docker-compose, Add nginx locations
+
+### Added
+- Added a `make` action for `deploy-docs`
+
+### Changed
+- Update `nginx.conf` with new locations from core
+- Update docker-compose to 3.8 to support build stages, etc.
+- Simplify location of `.env` file needed for Makefile actions
+
 ## [2.0.0] - 2020-11-23: Portal-Agnostic Camino
 
 ### Added
@@ -38,7 +48,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2020-05-06
 v1.0.0 Production release as of May 6, 2020.
 
-[unreleased]: https://github.com/TACC/Camino/compare/v2.0.0...HEAD
+[unreleased]: https://github.com/TACC/Camino/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/TACC/Camino/releases/tag/v2.1.0
 [2.0.0]: https://github.com/TACC/Camino/releases/tag/v2.0.0
 [1.2.0]: https://github.com/TACC/Camino/releases/tag/v1.2.0
 [1.1.0]: https://github.com/TACC/Camino/releases/tag/v1.1.0
