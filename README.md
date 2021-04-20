@@ -11,7 +11,7 @@ Dependencies:
 A compose file exists for each environment to orchestrate deployments. Each application/service in a compose file can be locked to a specific tag. An image digest can be used to guarantee the correct/expected image is always referenced.
 
 Setup:
-Clone the Camino repo to the path `/opt/{project_name}`
+Clone the Camino repo to the path `/opt/portal`
 
 At the root of the cloned project create the env file `.env` and add the name of the environment file to be used to manage deployments. The env files are named according the deployment environment they manage, like `dev.env, pprd.env, prod.env` and live in the directory `conf/camino`. With the env file set, make will load the environment variables and pass them to the compose file.
 
@@ -52,7 +52,7 @@ services:
 Deploying with Jenkins:
 
 1. Build and publish the image [Build/Publish Core Portal](https://jenkins01.tacc.utexas.edu/view/Frontera%20Web/job/Frontera_Portal/) [Build/Publish CMS](https://jenkins01.tacc.utexas.edu/view/Frontera%20Web/job/Frontera_CMS/)
-2. If required, update the service's image reference in the appropriate compse file as described above
+2. If required, update the service's image reference in the appropriate compose file as described above
 3. Go to [Frontera_Deployments](https://jenkins01.tacc.utexas.edu/view/Frontera%20Web/job/Frontera_Deploy/) in Jenkins and start a build, selecting environment and component/service
 
 A Makefile is included to faciliate manual deployment.
@@ -61,7 +61,7 @@ Steps for manually deploying service:
 
 1. Update the Camino compose file with image reference as needed
 2. Switch to user portal with `sudo su - portal` 
-3. Navigate to the Camino repo `cd /opt/frontera/camino/`
+3. Navigate to the Camino repo `cd /opt/portal/camino/`
 4. Run the appropriate `make` command 
     *cms: `make deploy-cms`
     *core portal: `make deploy-core`
