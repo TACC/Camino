@@ -69,6 +69,7 @@ services:
     command: 'daphne -b 0.0.0.0 -p 9000 -e ssl:443:privateKey=/etc/ssl/private/portal.key:certKey=/etc/ssl/certs/portal.cer --root-path=/srv/www/portal/server --access-log - --proxy-headers portal.asgi:application'
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
+      - ./conf/portal/settings_custom.py:/srv/www/portal/server/portal/settings/settings_custom.py
     container_name: portal_websockets
     logging:
       driver: syslog
@@ -80,6 +81,7 @@ services:
     image: ${PORTAL_IMAGE}:${PORTAL_TAG}
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
+      - ./conf/portal/settings_custom.py:/srv/www/portal/server/portal/settings/settings_custom.py
       - /var/www/portal/portal/media:/srv/www/portal/server/media
       - /var/www/portal/portal/static:/srv/www/portal/server/static
       - ./conf/uwsgi/uwsgi_core.ini:/srv/www/portal/server/conf/uwsgi/uwsgi_core.ini
@@ -97,6 +99,7 @@ services:
     image: ${PORTAL_IMAGE}:${PORTAL_TAG}
     volumes:
       - ./conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
+      - ./conf/portal/settings_custom.py:/srv/www/portal/server/portal/settings/settings_custom.py
     command: "celery -A portal worker -Q default,indexing,files,api,onboard --concurrency=10"
     container_name: portal_workers
     logging:
