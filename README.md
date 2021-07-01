@@ -1,10 +1,10 @@
 # Camino
 
 Dependencies:
-[Docker](https://docs.docker.com/)
-[Docker Compose](https://docs.docker.com/compose/)
-[Docker Hub](https://hub.docker.com/orgs/taccwma/repositories)
-[GNU Make](https://www.gnu.org/software/make/)
+- [Docker](https://docs.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [Docker Hub](https://hub.docker.com/orgs/taccwma/repositories)
+- [GNU Make](https://www.gnu.org/software/make/)
 
 ### Camino directs and tracks container-based deployments across various environments
 
