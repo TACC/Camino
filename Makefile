@@ -6,7 +6,11 @@ DOCKER_COMPOSE :=  docker-compose -f docker-compose.yml -f ./conf/camino/$(COMPO
 .PHONY: deploy-core
 deploy-core:
 	$(DOCKER_COMPOSE) pull core
+	$(DOCKER_COMPOSE) pull portal_websockets
+	$(DOCKER_COMPOSE) pull portal_workers
 	$(DOCKER_COMPOSE) stop core
+	$(DOCKER_COMPOSE) stop portal_websockets
+	$(DOCKER_COMPOSE) stop portal_workers
 	$(DOCKER_COMPOSE) up -d
 	docker exec portal_django python3 manage.py migrate
 	docker exec portal_django python3 manage.py collectstatic --noinput
