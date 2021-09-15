@@ -3,7 +3,8 @@ services:
   cms:
     image: ${CMS_IMAGE}:${CMS_TAG}
     volumes:
-      - ./conf/cms/secrets.py:/code/taccsite_cms/secrets.py
+      - ./conf/cms/settings_secret.py:/code/taccsite_cms/settings_secret.py
+      - ./conf/cms/settings_custom.py:/code/taccsite_cms/settings_custom.py
       - ./conf/uwsgi/uwsgi_cms.ini:/code/uwsgi.ini
       - /var/www/portal/cms/static:/code/static
       - /var/www/portal/cms/media:/code/media
