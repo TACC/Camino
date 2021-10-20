@@ -7,7 +7,7 @@ endif
 ifndef COMPOSE_FILE
 override COMPOSE_FILE_OVERRIDE =
 else
-override COMPOSE_FILE_OVERRIDE =  -f ${COMPOSE_FILE}
+override COMPOSE_FILE_OVERRIDE =  -f ./conf/camino/${COMPOSE_FILE}
 endif
 
 DOCKER_COMPOSE :=  docker-compose -f ${BASE_COMPOSE_FILE} ${COMPOSE_FILE_OVERRIDE}
