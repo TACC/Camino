@@ -1,7 +1,16 @@
 #!make
 ENV_FILE ?= ./.env
 include $(ENV_FILE)
-DOCKER_COMPOSE :=  docker-compose -f docker-compose.yml -f ./conf/camino/$(COMPOSE_FILE) --env-file=$(ENV_FILE)
+ifndef BASE_COMPOSE_FILE
+override BASE_COMPOSE_FILE = docker-compose.core.cms.yml
+endif
+ifndef COMPOSE_FILE
+override COMPOSE_FILE_OVERRIDE =
+else
+override COMPOSE_FILE_OVERRIDE =  -f ${COMPOSE_FILE}
+endif
+
+DOCKER_COMPOSE :=  docker-compose -f ${BASE_COMPOSE_FILE} ${COMPOSE_FILE_OVERRIDE}
 
 .PHONY: deploy-core
 deploy-core:

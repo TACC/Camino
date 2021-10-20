@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  docs:
+    image: taccwma/frontera-docs:latest
+    command: ["mkdocs", "serve", "--dev-addr", "0.0.0.0:8000"]
+    ports:
+      - 0.0.0.0:8000:8000
+    container_name: portal_user_guide

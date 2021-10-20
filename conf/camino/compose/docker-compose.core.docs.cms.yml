@@ -1,0 +1,75 @@
+version: "3.8"
+services:
+  nginx:
+    extends:
+      file: ../../../docker-compose.yml
+      service: nginx
+    volumes:
+      - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./conf/uwsgi/uwsgi_params:/etc/nginx/uwsgi_params
+      - /etc/ssl/dhparam.pem:/etc/ssl/dhparam.pem
+      - /var/www/portal/cms/static:/var/www/portal/cms/static
+      - /var/www/portal/cms/media:/var/www/portal/cms/media
+      - /var/www/portal/portal/media:/var/www/portal/portal/media
+      - /var/www/portal/portal/static:/var/www/portal/portal/static
+    ports:
+      - 80:80
+      - 443:443
+    container_name: portal_nginx
+    logging:
+      driver: syslog
+      options:
+        tag: portal_nginx
+    restart: always
+
+  docs:
+    extends:
+      file: docker-compose.docs.yml
+      service: docs
+    image: taccwma/frontera-docs:latest
+    volumes:
+      - /var/www/portal/docs:/docs/site
+    command: ["mkdocs", "build"]
+    container_name: portal_user_guide
+    logging:
+      driver: syslog
+      options:
+        tag: portal_user_guide
+
+ memcached:
+    extends:
+      file: docker-compose.memcached.yml
+      service: memcached
+
+  redis:
+    extends:
+      file: docker-compose.redis.yml
+      service: redis
+
+  rabbitmq:
+    extends:
+      file: docker-compose.rabbitmq.yml
+      service: rabbitmq
+
+  websockets:
+    extends:
+      file: docker-compose.websockets.yml
+      service: websockets
+
+  core:
+    extends:
+      file: docker-compose.core.yml
+      service: core
+
+  workers:
+    extends:
+      file: docker-compose.workers.yml
+      service: workers
+
+  cms:
+    extends:
+      file: docker-compose.cms.yml
+      service: cms
+
+volumes:
+  portal_es_data:
