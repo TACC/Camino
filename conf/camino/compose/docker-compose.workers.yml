@@ -5,8 +5,8 @@ services:
       file: docker-compose.core.yml
       service: core
     volumes:
-      - ../../conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
-      - ../../conf/portal/settings_custom.py:/srv/www/portal/server/portal/settings/settings_custom.py
+      - ${CAMINO_HOME}/conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
+      - ${CAMINO_HOME}/conf/portal/settings_custom.py:/srv/www/portal/server/portal/settings/settings_custom.py
     command: "celery -A portal worker -Q default,indexing,files,api,onboard --concurrency=10"
     container_name: portal_workers
     logging:

@@ -3,11 +3,11 @@ services:
   core:
     image: ${PORTAL_IMAGE}:${PORTAL_TAG}
     volumes:
-      - ../../conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
-      - ../../conf/portal/settings_custom.py:/srv/www/portal/server/portal/settings/settings_custom.py
+      - ${CAMINO_HOME}/conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
+      - ${CAMINO_HOME}/conf/portal/settings_custom.py:/srv/www/portal/server/portal/settings/settings_custom.py
       - /var/www/portal/portal/media:/srv/www/portal/server/media
       - /var/www/portal/portal/static:/srv/www/portal/server/static
-      - ../../conf/uwsgi/uwsgi_core.ini:/srv/www/portal/server/conf/uwsgi/uwsgi_core.ini
+      - ${CAMINO_HOME}/conf/uwsgi/uwsgi_core.ini:/srv/www/portal/server/conf/uwsgi/uwsgi_core.ini
     stdin_open: true
     tty: true
     command: uwsgi --ini /srv/www/portal/server/conf/uwsgi/uwsgi_core.ini

@@ -3,8 +3,8 @@ services:
   cms:
     image: ${CMS_IMAGE}:${CMS_TAG}
     volumes:
-      - ./conf/cms/secrets.py:/code/taccsite_cms/secrets.py
-      - ./conf/uwsgi/uwsgi_cms.ini:/code/uwsgi.ini
+      - ${CAMINO_HOME}/conf/cms/secrets.py:/code/taccsite_cms/secrets.py
+      - ${CAMINO_HOME}/conf/uwsgi/uwsgi_cms.ini:/code/uwsgi.ini
       - /var/www/portal/cms/static:/code/static
       - /var/www/portal/cms/media:/code/media
     command: ["uwsgi", "--ini", "uwsgi.ini"]
