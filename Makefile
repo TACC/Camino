@@ -7,10 +7,10 @@ endif
 ifndef COMPOSE_FILE
 override COMPOSE_FILE_OVERRIDE =
 else
-override COMPOSE_FILE_OVERRIDE =  -f ./conf/camino/${COMPOSE_FILE} --env-file=$(ENV_FILE)
+override COMPOSE_FILE_OVERRIDE =  ${COMPOSE_FILE}
 endif
 
-DOCKER_COMPOSE :=  docker-compose -f ./conf/camino/compose/${BASE_COMPOSE_FILE} ${COMPOSE_FILE_OVERRIDE}
+DOCKER_COMPOSE :=  docker-compose -f ${CAMINO_HOME}/conf/camino/compose/${BASE_COMPOSE_FILE} -f ${CAMINO_HOME}/conf/camino/${COMPOSE_FILE_OVERRIDE} --env-file=$(ENV_FILE)
 
 .PHONY: deploy-core
 deploy-core:
