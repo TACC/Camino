@@ -5,8 +5,8 @@ services:
       file: ../../../docker-compose.yml
       service: nginx
     volumes:
-      - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./conf/uwsgi/uwsgi_params:/etc/nginx/uwsgi_params
+      - ../../conf/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ../../conf/uwsgi/uwsgi_params:/etc/nginx/uwsgi_params
       - /etc/ssl/dhparam.pem:/etc/ssl/dhparam.pem
       - /var/www/portal/cms/static:/var/www/portal/cms/static
       - /var/www/portal/cms/media:/var/www/portal/cms/media
@@ -59,3 +59,6 @@ services:
 
 volumes:
   portal_es_data:
+  portal_redis_data:
+  portal_rabbitmq_data:
+

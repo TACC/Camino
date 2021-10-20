@@ -36,7 +36,7 @@ services:
       options:
         tag: portal_user_guide
 
- memcached:
+  memcached:
     extends:
       file: docker-compose.memcached.yml
       service: memcached
@@ -73,3 +73,6 @@ services:
 
 volumes:
   portal_es_data:
+  portal_redis_data:
+  portal_rabbitmq_data:
+

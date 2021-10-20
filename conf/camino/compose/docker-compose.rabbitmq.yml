@@ -4,7 +4,7 @@ services:
     image: rabbitmq:3.7.17-management
     volumes:
       - portal_rabbitmq_data:/var/lib/rabbitmq/mnesia/rabbit@portal_rabbitmq
-    env_file: ./conf/rabbitmq/rabbitmq.env
+    env_file: ../../conf/rabbitmq/rabbitmq.env
     container_name: portal_rabbitmq
     logging:
       driver: syslog
