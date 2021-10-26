@@ -11,7 +11,9 @@ override COMPOSE_OVERRIDE =
 else
 override COMPOSE_OVERRIDE =  -f ${CAMINO_HOME}/conf/camino/${COMPOSE_FILE}
 endif
-
+ifndef CAMINO_HOME
+override CAMINO_HOME := $(lastword $(abspath $(MAKEFILE_LIST)))
+endif
 DOCKER_COMPOSE :=  docker-compose ${BASE_COMPOSE} ${COMPOSE_OVERRIDE} --env-file=$(ENV_FILE)
 
 .PHONY: deploy-core
