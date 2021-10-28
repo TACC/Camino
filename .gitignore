@@ -44,3 +44,5 @@ conf/camino/*
 *settings_local.py
 *secrets.py
 rabbitmq.env
+conf/portal/*
+!conf/portal/*example.*
