@@ -17,5 +17,3 @@ services:
       options:
         tag: portal_django
     restart: always
-
-

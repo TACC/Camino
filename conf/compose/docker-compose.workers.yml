@@ -14,4 +14,3 @@ services:
       options:
         tag: portal_workers
     restart: always
-
