@@ -4,7 +4,7 @@ include $(ENV_FILE)
 
 # CAMINO_HOME defaults to the path to this Makefile
 ifndef CAMINO_HOME
-override CAMINO_HOME := $(lastword $(abspath $(MAKEFILE_LIST)))
+override CAMINO_HOME := $(dir $(lastword $(abspath $(MAKEFILE_LIST))))
 endif
 
 ifndef BASE_COMPOSE_FILE
