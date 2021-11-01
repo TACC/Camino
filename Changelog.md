@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2021-11-01: Enable standalone services
+
+### Added
+
+- FP-1120 & FP-1136: Allow standalone services (e.g. CMS/Docs/Portal) (#19)
+
+### Changed
+
+- Add gzip configuration for static assets. (#17)
+
+## [2.2.1] - 2021-07-15: Allow custom upstreams
+
+### Changed
+
+- Accept custom http entries in upstream nginx directives (#15)
+
 ## [2.2.0] - 2021-06-15: Mount Custom Settings
 
 ### Added
@@ -58,7 +74,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2020-05-06
 v1.0.0 Production release as of May 6, 2020.
 
-[unreleased]: https://github.com/TACC/Camino/compare/v2.2.0...HEAD
+[unreleased]: https://github.com/TACC/Camino/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/TACC/Camino/releases/tag/v2.3.0
+[2.2.1]: https://github.com/TACC/Camino/releases/tag/v2.2.1
 [2.2.0]: https://github.com/TACC/Camino/releases/tag/v2.2.0
 [2.1.0]: https://github.com/TACC/Camino/releases/tag/v2.1.0
 [2.0.0]: https://github.com/TACC/Camino/releases/tag/v2.0.0
