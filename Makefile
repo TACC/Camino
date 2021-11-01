@@ -1,19 +1,24 @@
 #!make
 ENV_FILE ?= ./.env
 include $(ENV_FILE)
+
+# CAMINO_HOME defaults to the path to this Makefile
+ifndef CAMINO_HOME
+override CAMINO_HOME := $(dir $(lastword $(abspath $(MAKEFILE_LIST))))
+endif
+
 ifndef BASE_COMPOSE_FILE
 override BASE_COMPOSE = -f ${CAMINO_HOME}/conf/compose/docker-compose.core.cms.yml
 else
 override BASE_COMPOSE = -f ${CAMINO_HOME}/conf/compose/${BASE_COMPOSE_FILE}
 endif
+
 ifndef COMPOSE_FILE
 override COMPOSE_OVERRIDE =
 else
-override COMPOSE_OVERRIDE =  -f ${CAMINO_HOME}/conf/camino/${COMPOSE_FILE}
+override COMPOSE_OVERRIDE = -f ${CAMINO_HOME}/conf/camino/${COMPOSE_FILE}
 endif
-ifndef CAMINO_HOME
-override CAMINO_HOME := $(lastword $(abspath $(MAKEFILE_LIST)))
-endif
+
 DOCKER_COMPOSE :=  docker-compose ${BASE_COMPOSE} ${COMPOSE_OVERRIDE} --env-file=$(ENV_FILE)
 
 .PHONY: deploy-core
