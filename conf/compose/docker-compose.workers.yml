@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  workers:
+    extends:
+      file: docker-compose.core.yml
+      service: core
+    volumes:
+      - ${CAMINO_HOME}/conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py
+      - ${CAMINO_HOME}/conf/portal/settings_custom.py:/srv/www/portal/server/portal/settings/settings_custom.py
+    command: "celery -A portal worker -Q default,indexing,files,api,onboard --concurrency=10"
+    container_name: portal_workers
+    logging:
+      driver: syslog
+      options:
+        tag: portal_workers
+    restart: always

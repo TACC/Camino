@@ -1,28 +1,43 @@
-_SECRET_KEY = 'change_me'
-_DEBUG = True
-_ALLOWED_HOSTS = ['*']
-_SITE_ID = 1
-_CMS_TEMPLATES =  (
-    ## Customize this
-    ('base.html', 'Base'),
-    ('cms_menu.html', 'CMS Menu'),
-    ('fullwidth.html', 'Fullwidth'),
-    ('sidebar_left.html', 'Sidebar Left'),
-    ('sidebar_right.html', 'Sidebar Right')
-)
+# SECRET SETTINGS VALUES.
+# SAMPLE.TACC.UTEXAS.EDU
 
-# As needed:
-#_CACHES = {
-#    'default': {
-#        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-#        'LOCATION': 'frontera_portal_memcached:11211',
-#    }
-#}
+########################
+# DJANGO SETTINGS
+########################
 
+SECRET_KEY = 'change_me'
+ALLOWED_HOSTS = ['sample.tacc.utexas.edu']
+CEP_AUTH_VERIFICATION_ENDPOINT = 'https://sample.tacc.utexas.edu'
 
-_DATABASE_ENGINE = 'django.db.backends.postgresql'
-_DATABASE_NAME = 'postgres'
-_DATABASE_USERNAME = 'postgres'
-_DATABASE_PASSWORD = 'secretpw'
-_DATABASE_HOST = 'postgres_host'
-_DATABASE_PORT = 5432
+########################
+# DATABASE SETTINGS
+########################
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'PORT': '5432',
+        'NAME': 'sample_cms',
+        'USER': 'sample_cms',
+        'PASSWORD': 'change_me',
+        'HOST': 'portal_postgres'
+    }
+}
+
+########################
+# ELASTICSEARCH
+########################
+
+ES_HOSTS = 'https://esclient:9200'
+ES_AUTH = 'sample:change_me'
+ES_INDEX_PREFIX = 'sample-{}'
+ES_DOMAIN = 'https://sample.tacc.utexas.edu'
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': ES_HOSTS,
+        'INDEX_NAME': ES_INDEX_PREFIX.format('cms'),
+        'KWARGS': {'http_auth': ES_AUTH }
+    }
+}

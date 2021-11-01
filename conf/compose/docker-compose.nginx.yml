@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  nginx:
+    image: nginx
+    ports:
+      - 80:80
+    container_name: portal_nginx
+    restart: always

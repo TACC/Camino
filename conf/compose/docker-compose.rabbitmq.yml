@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  rabbitmq:
+    image: rabbitmq:3.7.17-management
+    volumes:
+      - portal_rabbitmq_data:/var/lib/rabbitmq/mnesia/rabbit@portal_rabbitmq
+    env_file: ${CAMINO_HOME}/conf/rabbitmq/rabbitmq.env
+    container_name: portal_rabbitmq
+    logging:
+      driver: syslog
+      options:
+        tag: portal_rabbitmq
+    restart: always
+
+volumes:
+  portal_rabbitmq_data:

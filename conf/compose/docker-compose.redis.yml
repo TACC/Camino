@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  redis:
+    image: redis:5.0
+    volumes:
+      - portal_redis_data:/data
+    container_name: portal_redis
+    logging:
+      driver: syslog
+      options:
+        tag: portal_redis
+    restart: always
+
+volumes:
+  portal_redis_data:

@@ -13,40 +13,44 @@ A compose file exists for each environment to orchestrate deployments. Each appl
 Setup:
 Clone the Camino repo to the path `/opt/portal`
 
-At the root of the cloned project create the env file `.env` and add the name of the environment file to be used to manage deployments. The env files are named according the deployment environment they manage, like `dev.env, pprd.env, prod.env` and live in the directory `conf/camino`. With the env file set, make will load the environment variables and pass them to the compose file.
+At the root of the cloned project create the env file `.env` and add the environment variables
+that indicate which docker-compose files should be used. With the env file set, Make will 
+load the environment variables and pass them to the compose file.
 
-Ex. To manage and deploy dev, use the filename `dev.env`, this file will be passed to docker-compose with `--env-file=./conf/camino/dev.env`
+The .env file can be used to [populate values in the compose file](https://docs.docker.com/compose/environment-variables/)
+and in conjunction with the Makefile helps create custom service sets.
 
-This file can be used to [populate values in the compose file](https://docs.docker.com/compose/environment-variables/)
+### Quick-Start Example
 
-To deploy changes to a service, the image name and tag (or digest) for the service should be set in the appropriate compose file (or, if using a var, the matching env file in `conf/camino`). This means that the image must be pre-built and its tag or digest known before deployment.
-
-For example, to deploy a new pre-built cms image to production, the image in docker-compose.yml would be updated like below:
-
+1. Clone this repo
+2. Create a `.env` file and populate with:
 ```
+BASE_COMPOSE_FILE=docker-compose.nginx.yml
+COMPOSE_FILE=
+CAMINO_HOME=${PWD}
+```
+3. Run `make up`
+4. Navigate to `localhost`
+
+Services can be customized without modifying base
+compose files by creating overrides files in `conf/camino/`
+
+##### To override the version of nginx image used in the previous example
+
+1. Create file `docker-compose.nginx.overrides.yml` In `conf/camino` and paste in:
+```
+version: "3.8"
 services:
-  cms:
-    image: taccwma/frontera-cms:{tag}
-    volumes:
+  nginx:
+    image: nginx:stable
 ```
-to
-```
-services:
-  cms:
-    image: taccwma/frontera-cms:{tag}
-    volumes:
-```
+2. In the .env file add entry, `COMPOSE_FILE=docker-compose.nginx.overrides.yml`
+3. run make up
+4. Note that the nginx image with tag `stable` is being pulled down
+5. Navigating to `localhost` now displays the default page for the new image
 
-To update a dev environment, a similar change would happen in the docker-compose-dev.yml file.
-
-Additionally, to facilitate continuous integration without constant updates to the Camino repo, a service in a compose file can be tagged with `:latest`. New images built and published with the tag `:latest` can then be deployed without requiring updates to Camino.
-
-```
-services:
-  cms:
-    image: taccwma/frontera-cms:latest
-    volumes:
-```
+To facilitate continuous integration without updating the Camino repo, 
+a service in a compose file can be tagged with `:latest`. New images built and published with the tag `:latest` can then be deployed without requiring updates to Camino.
 
 
 Deploying with Jenkins:

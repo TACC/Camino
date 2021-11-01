@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 .idea/
+
 # C extensions
 *.so
 
@@ -31,17 +32,17 @@ MANIFEST
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-rabbitmq.env
-elasticsearch.yml
-*secrets.py
-*secrets.env
-*.secret
-*settings_secret.py
-*settings_secret.env
+
+# Camino configuraitons from Core-Portal-Deployments
 .env
 conf/camino/*
 !conf/camino/*sample.*
-camino_env
-compose_file
-make_env
 
+# Secrets and Configurations
+*settings_secret.py
+*settings_custom.py
+*settings_local.py
+*secrets.py
+rabbitmq.env
+conf/portal/*
+!conf/portal/*example.*
