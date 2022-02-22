@@ -23,8 +23,8 @@ DOCKER_COMPOSE :=  docker-compose ${BASE_COMPOSE} ${COMPOSE_OVERRIDE} --env-file
 
 .PHONY: deploy-core
 deploy-core:
-	$(DOCKER_COMPOSE) pull core
-	$(DOCKER_COMPOSE) stop core
+	$(DOCKER_COMPOSE) pull core websockets workers
+	$(DOCKER_COMPOSE) stop core websockets workers
 	$(DOCKER_COMPOSE) up -d
 	docker exec portal_django python3 manage.py migrate
 	docker exec portal_django python3 manage.py collectstatic --noinput
