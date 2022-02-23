@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.0] - 2023-02-23: `deploy-core` restarts core services; Refresh static assets on deploy
+
+### Changed
+
+- Update Makefile to enforce fresh collectstatic action (#11)
+- FP-442: Pull and restart workers and websockets when deploy-core (#21)
+
 ## [2.3.0] - 2021-11-01: Enable standalone services
 
 ### Added
@@ -74,7 +81,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2020-05-06
 v1.0.0 Production release as of May 6, 2020.
 
-[unreleased]: https://github.com/TACC/Camino/compare/v2.3.0...HEAD
+[unreleased]: https://github.com/TACC/Camino/compare/v2.4.0...HEAD
+[2.4.0]: https://github.com/TACC/Camino/releases/tag/v2.4.0
 [2.3.0]: https://github.com/TACC/Camino/releases/tag/v2.3.0
 [2.2.1]: https://github.com/TACC/Camino/releases/tag/v2.2.1
 [2.2.0]: https://github.com/TACC/Camino/releases/tag/v2.2.0
