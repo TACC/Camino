@@ -44,8 +44,6 @@ deploy-all:
 	$(DOCKER_COMPOSE) pull
 	$(DOCKER_COMPOSE) stop
 	$(DOCKER_COMPOSE) up -d
-	docker exec portal_django python3 manage.py migrate
-	docker exec portal_django python3 manage.py collectstatic --noinput --clear
 	docker exec portal_cms python3 manage.py migrate
 	docker exec portal_cms python3 manage.py collectstatic --noinput --clear
 	$(DOCKER_COMPOSE) restart nginx
