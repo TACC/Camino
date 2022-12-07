@@ -5,7 +5,8 @@ services:
       file: ${CAMINO_HOME}/conf/compose/docker-compose.nginx.yml
       service: nginx
     volumes:
-      - ${CAMINO_HOME}/conf/nginx/default.conf.template:/etc/nginx/templates/default.conf.template
+      - ${CAMINO_HOME}/conf/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ${CAMINO_HOME}/conf/nginx/templates:/etc/nginx/templates
       - ${CAMINO_HOME}/conf/uwsgi/uwsgi_params:/etc/nginx/uwsgi_params
       - /etc/ssl/dhparam.pem:/etc/ssl/dhparam.pem
       - /var/www/portal/cms/static:/var/www/portal/cms/static
@@ -16,6 +17,8 @@ services:
       - 80:80
       - 443:443
     container_name: portal_nginx
+    environment:
+      - NGINX_SERVER_NAME=${NGINX_SERVER_NAME}
     logging:
       driver: syslog
       options:
