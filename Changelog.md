@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.7.0] - 2022-12-15: Parameterized nginx server_name
+
+### Changed
+
+- FP-1947: Parameterized nginx server_name (#24)
+
+## [2.6.0] - 2022-08-25: Update nginx ssl and uwsgi configurations
+
+### Changed
+
+- FP-1797: update ciphers; bump send timeout(#22)
 
 ## [2.5.0] - 2022-08-18: Increase max file upload size
 
@@ -88,7 +99,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2020-05-06
 v1.0.0 Production release as of May 6, 2020.
 
-[unreleased]: https://github.com/TACC/Camino/compare/v2.5.0...HEAD
+[unreleased]: https://github.com/TACC/Camino/compare/v2.7.0...HEAD
+[2.7.0]: https://github.com/TACC/Camino/releases/tag/v2.7.0
+[2.6.0]: https://github.com/TACC/Camino/releases/tag/v2.6.0
 [2.5.0]: https://github.com/TACC/Camino/releases/tag/v2.5.0
 [2.4.0]: https://github.com/TACC/Camino/releases/tag/v2.4.0
 [2.3.0]: https://github.com/TACC/Camino/releases/tag/v2.3.0
