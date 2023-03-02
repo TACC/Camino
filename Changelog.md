@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.7.1] - 2023-03-02: Fix CMS uWSGI buffer size
+
+### Fixed
+
+- Bump uWSGI buffer size on CMS pages (#29)
+
+
 ## [2.7.0] - 2022-12-15: Parameterized nginx server_name
 
 ### Changed
@@ -99,7 +106,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2020-05-06
 v1.0.0 Production release as of May 6, 2020.
 
-[unreleased]: https://github.com/TACC/Camino/compare/v2.7.0...HEAD
+[unreleased]: https://github.com/TACC/Camino/compare/v2.7.1...HEAD
+[2.7.1]: https://github.com/TACC/Camino/releases/tag/v2.7.1
 [2.7.0]: https://github.com/TACC/Camino/releases/tag/v2.7.0
 [2.6.0]: https://github.com/TACC/Camino/releases/tag/v2.6.0
 [2.5.0]: https://github.com/TACC/Camino/releases/tag/v2.5.0
