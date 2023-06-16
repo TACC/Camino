@@ -49,7 +49,7 @@ server {
     set $CSP        "default-src  'self' ; ${CSP_image} ${CSP_script} ${CSP_style} ${CSP_font} ${CSP_frame} ${CSP_object}";
 
     add_header Content-Security-Policy $CSP;
-    add_header Permissions-Policy "autoplay=(), camera=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), magnetomete=(), microphone=(), midi=(), payment=(), speaker-selection=()" always;
+    add_header Permissions-Policy "autoplay=(), camera=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), speaker-selection=()" always;
     add_header Referrer-Policy 'strict-origin' always;
     add_header Strict-Transport-Security "max-age=2592000; includeSubDomains" always;
     add_header X-Content-Type-Options "nosniff" always;
