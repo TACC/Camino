@@ -5,3 +5,5 @@ services:
     command: ["-m", "1024m"]
     container_name: portal_memcached
     restart: always
+    ports:
+      - 127.0.0.1:11211:11211
