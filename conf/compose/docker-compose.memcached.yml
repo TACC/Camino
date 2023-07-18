@@ -2,7 +2,7 @@ version: "3.8"
 services:
   memcached:
     image: memcached:latest
-    command: ["-m", "1024m"]
+    command: ["memcached"]
     container_name: portal_memcached
     restart: always
     ports:
