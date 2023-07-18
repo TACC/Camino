@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
+## [2.9.0] - 2023-07-18: Security Headers; Django Caching
+
+### Changed
+
+- WI-7: Add security headers in nginx conf (#31)
+- WA-46: Add CSP Policy headers (#32)
+- WI-29: Set up Django Caching (#33)
+
 ## [2.8.0] - 2023-05-08: Updated `docker compsose` command
 
 ### Changed
@@ -112,7 +120,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2020-05-06
 v1.0.0 Production release as of May 6, 2020.
 
-[unreleased]: https://github.com/TACC/Camino/compare/v2.8.0...HEAD
+[unreleased]: https://github.com/TACC/Camino/compare/v2.9.0...HEAD
+[2.9.0]: https://github.com/TACC/Camino/releases/tag/v2.9.0
 [2.8.0]: https://github.com/TACC/Camino/releases/tag/v2.8.0
 [2.7.1]: https://github.com/TACC/Camino/releases/tag/v2.7.1
 [2.7.0]: https://github.com/TACC/Camino/releases/tag/v2.7.0
