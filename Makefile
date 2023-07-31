@@ -88,6 +88,13 @@ deploy:
 	$(DOCKER_COMPOSE) up -d $(service)
 	$(DOCKER_COMPOSE) restart nginx
 
+.PHONY: deploy-all-service
+deploy-all-service:
+	$(DOCKER_COMPOSE) pull
+	$(DOCKER_COMPOSE) stop
+	$(DOCKER_COMPOSE) up -d
+	$(DOCKER_COMPOSE) restart nginx
+
 .PHONY: migrate
 migrate:
 	$(DOCKER_COMPOSE) exec $(service) python3 manage.py migrate
