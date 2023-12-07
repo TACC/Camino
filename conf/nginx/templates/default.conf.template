@@ -40,6 +40,12 @@ server {
     ssl_certificate     /etc/ssl/certs/portal.cer;
     ssl_certificate_key /etc/ssl/private/portal.key;
 
+    add_header Permissions-Policy "autoplay=(), camera=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=()" always;
+    add_header Referrer-Policy 'strict-origin' always;
+    add_header Strict-Transport-Security "max-age=2592000; includeSubDomains" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Content-Security-Policy "connect-src 'self' ws: wss: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.tacc.utexas.edu" always;
+
     location /media  {
         alias /var/www/portal/cms/media;
     }

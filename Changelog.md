@@ -7,6 +7,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.9.1] - 2023-11-01: Mount Secrets as read-only
+
+### Fixed
+
+- WI-52: Mount secrets as read-only to avoid docker folder creation when non-existent (#34)
+
+## [2.9.0] - 2023-07-18: Security Headers; Django Caching
+
+### Changed
+
+- WI-7: Add security headers in nginx conf (#31)
+- WA-46: Add CSP Policy headers (#32)
+- WI-29: Set up Django Caching (#33)
+
+## [2.8.0] - 2023-05-08: Updated `docker compsose` command
+
+### Changed
+
+- Update the `docker compose` command (#30)
+
+## [2.7.1] - 2023-03-02: Fix CMS uWSGI buffer size
+
+### Fixed
+
+- Bump uWSGI buffer size on CMS pages (#29)
+
+## [2.7.0] - 2022-12-15: Parameterized nginx server_name
+
+### Changed
+
+- FP-1947: Parameterized nginx server_name (#24)
+
+## [2.6.0] - 2022-08-25: Update nginx ssl and uwsgi configurations
+
+### Changed
+
+- FP-1797: update ciphers; bump send timeout(#22)
 
 ## [2.5.0] - 2022-08-18: Increase max file upload size
 
@@ -88,7 +125,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2020-05-06
 v1.0.0 Production release as of May 6, 2020.
 
-[unreleased]: https://github.com/TACC/Camino/compare/v2.5.0...HEAD
+[unreleased]: https://github.com/TACC/Camino/compare/v2.9.1...HEAD
+[2.9.1]: https://github.com/TACC/Camino/releases/tag/v2.9.1
+[2.9.0]: https://github.com/TACC/Camino/releases/tag/v2.9.0
+[2.8.0]: https://github.com/TACC/Camino/releases/tag/v2.8.0
+[2.7.1]: https://github.com/TACC/Camino/releases/tag/v2.7.1
+[2.7.0]: https://github.com/TACC/Camino/releases/tag/v2.7.0
+[2.6.0]: https://github.com/TACC/Camino/releases/tag/v2.6.0
 [2.5.0]: https://github.com/TACC/Camino/releases/tag/v2.5.0
 [2.4.0]: https://github.com/TACC/Camino/releases/tag/v2.4.0
 [2.3.0]: https://github.com/TACC/Camino/releases/tag/v2.3.0
