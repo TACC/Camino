@@ -4,5 +4,10 @@ services:
     image: nginx
     ports:
       - 80:80
+      - 443:443
     container_name: portal_nginx
+    logging:
+      driver: syslog
+      options:
+        tag: portal_nginx
     restart: always
