@@ -2,16 +2,16 @@ version: "3.8"
 services:
   nginx:
     volumes:
-      - /etc/ssl/sample.tacc.utexas.edu.cer:/etc/ssl/certs/portal.cer
-      - /etc/ssl/sample.tacc.utexas.edu.key:/etc/ssl/private/portal.key
+      - /etc/ssl/sample.tacc.utexas.edu.cer:/etc/ssl/certs/portal.cer:ro
+      - /etc/ssl/sample.tacc.utexas.edu.key:/etc/ssl/private/portal.key:ro
       - ./conf/camino/sample.server.conf:/etc/nginx/conf.d/sample.server.conf
       - ./conf/camino/sample.location.conf:/etc/nginx/conf.d/sample.location.conf
       - /var/www/portal/docs:/var/www/portal/docs
 
   websockets:
     volumes:
-      - /etc/ssl/sample.tacc.utexas.edu.cer:/etc/ssl/certs/portal.cer
-      - /etc/ssl/sample.tacc.utexas.edu.key:/etc/ssl/private/portal.key
+      - /etc/ssl/sample.tacc.utexas.edu.cer:/etc/ssl/certs/portal.cer:ro
+      - /etc/ssl/sample.tacc.utexas.edu.key:/etc/ssl/private/portal.key:ro
 
   docs:
     image: taccwma/portal-user-guide:latest
