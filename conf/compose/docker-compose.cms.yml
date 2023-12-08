@@ -1,13 +1,5 @@
 version: "3.8"
 services:
-  nginx:
-    extends:
-      file: ${CAMINO_HOME}/conf/compose/docker-compose.nginx.yml
-      service: nginx
-    volumes:
-      - /var/www/portal/cms/static:/var/www/portal/cms/static
-      - /var/www/portal/cms/media:/var/www/portal/cms/media
-
   cms:
     image: ${CMS_IMAGE}:${CMS_TAG}
     volumes:
