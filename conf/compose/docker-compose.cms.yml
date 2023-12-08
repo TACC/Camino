@@ -1,14 +1,20 @@
 version: "3.8"
 services:
+  nginx:
+    extends:
+      file: ${CAMINO_HOME}/conf/compose/docker-compose.nginx.yml
+      service: nginx
+    volumes:
+      - /var/www/portal/cms/static:/var/www/portal/cms/static
+      - /var/www/portal/cms/media:/var/www/portal/cms/media
+
   cms:
     image: ${CMS_IMAGE}:${CMS_TAG}
     volumes:
+      - ${CAMINO_HOME}/conf/cms/settings_custom.py:/code/taccsite_cms/settings_custom.py:ro
+      - ${CAMINO_HOME}/conf/cms/settings_local.py:/code/taccsite_cms/settings_local.py:ro
       - ${CAMINO_HOME}/conf/cms/secrets.py:/code/taccsite_cms/secrets.py:ro
       - ${CAMINO_HOME}/conf/uwsgi/uwsgi_cms.ini:/code/uwsgi.ini
-      - ${CAMINO_HOME}/conf/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ${CAMINO_HOME}/conf/nginx/templates:/etc/nginx/templates
-      - ${CAMINO_HOME}/conf/uwsgi/uwsgi_params:/etc/nginx/uwsgi_params
-      - /etc/ssl/dhparam.pem:/etc/ssl/dhparam.pem
       - /var/www/portal/cms/static:/code/static
       - /var/www/portal/cms/media:/code/media
     command: ["uwsgi", "--ini", "uwsgi.ini"]
