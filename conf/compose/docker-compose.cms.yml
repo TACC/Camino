@@ -3,8 +3,12 @@ services:
   cms:
     image: ${CMS_IMAGE}:${CMS_TAG}
     volumes:
-      - ${CAMINO_HOME}/conf/cms/secrets.py:/code/taccsite_cms/secrets.py
+      - ${CAMINO_HOME}/conf/cms/secrets.py:/code/taccsite_cms/secrets.py:ro
       - ${CAMINO_HOME}/conf/uwsgi/uwsgi_cms.ini:/code/uwsgi.ini
+      - ${CAMINO_HOME}/conf/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ${CAMINO_HOME}/conf/nginx/templates:/etc/nginx/templates
+      - ${CAMINO_HOME}/conf/uwsgi/uwsgi_params:/etc/nginx/uwsgi_params
+      - /etc/ssl/dhparam.pem:/etc/ssl/dhparam.pem
       - /var/www/portal/cms/static:/code/static
       - /var/www/portal/cms/media:/code/media
     command: ["uwsgi", "--ini", "uwsgi.ini"]
