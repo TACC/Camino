@@ -17,7 +17,7 @@ services:
     image: taccwma/portal-user-guide:latest
     volumes:
       - /var/www/portal/docs:/docs/site
-    command: ["mkdocs", "build"]
+    command: [ "mkdocs", "build" ]
     container_name: portal_user_guide
     logging:
       driver: syslog
