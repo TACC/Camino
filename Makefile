@@ -36,7 +36,7 @@ deploy-cms:
 	$(DOCKER_COMPOSE) stop cms
 	$(DOCKER_COMPOSE) up -d
 	docker exec portal_cms python3 manage.py migrate
-	docker exec portal_cms python3 manage.py collectstatic --noinput --clear
+	docker exec portal_cms python3 manage.py collectstatic --noinput --clear --ignore assets/*/font*.css
 	$(DOCKER_COMPOSE) restart nginx
 
 .PHONY: deploy-all
@@ -47,7 +47,7 @@ deploy-all:
 	docker exec portal_django python3 manage.py migrate
 	docker exec portal_django python3 manage.py collectstatic --noinput --clear
 	docker exec portal_cms python3 manage.py migrate
-	docker exec portal_cms python3 manage.py collectstatic --noinput --clear
+	docker exec portal_cms python3 manage.py collectstatic --noinput --clear --ignore assets/*/font*.css
 	$(DOCKER_COMPOSE) restart nginx
 
 .PHONY: deploy-docs
@@ -94,4 +94,4 @@ migrate:
 
 .PHONY: collectstatic
 collectstatic:
-	$(DOCKER_COMPOSE) exec $(service) python3 manage.py collectstatic --noinput
+	$(DOCKER_COMPOSE) exec $(service) python3 manage.py collectstatic --noinput --ignore assets/*/font*.css
