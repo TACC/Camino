@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.10.0] - 2024-01-05: Add XSS Protection Header
+
+### Changed
+
+- WI-85: Add XSS Protection Header (#45)
+
 ## [2.9.1] - 2023-11-01: Mount Secrets as read-only
 
 ### Fixed
@@ -125,7 +131,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2020-05-06
 v1.0.0 Production release as of May 6, 2020.
 
-[unreleased]: https://github.com/TACC/Camino/compare/v2.9.1...HEAD
+[unreleased]: https://github.com/TACC/Camino/compare/v2.10.0...HEAD
+[2.10.0]: https://github.com/TACC/Camino/releases/tag/v2.10.0
 [2.9.1]: https://github.com/TACC/Camino/releases/tag/v2.9.1
 [2.9.0]: https://github.com/TACC/Camino/releases/tag/v2.9.0
 [2.8.0]: https://github.com/TACC/Camino/releases/tag/v2.8.0
