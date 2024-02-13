@@ -6,6 +6,7 @@ services:
       service: nginx
     volumes:
       - ${CAMINO_HOME}/conf/nginx/templates/sad.cms.conf.template:/etc/nginx/templates/default.conf.template
+      - ${CAMINO_HOME}/conf/uwsgi/uwsgi_params:/etc/nginx/uwsgi_params
       - /var/www/portal/cms/static:/var/www/portal/cms/static
       - /var/www/portal/cms/media:/var/www/portal/cms/media
 
