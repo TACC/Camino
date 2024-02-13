@@ -1,13 +1,5 @@
 client_max_body_size 2G;
 
-# Extra slashes matter to Tapis
-merge_slashes off;
-
-upstream portal_cms {
-    server portal_cms:8000;
-    keepalive 2;
-}
-
 ## Include any custom http directives
 include /etc/nginx/conf.d/*.http.conf;
 
@@ -37,41 +29,6 @@ server {
     add_header X-Content-Type-Options "nosniff" always;
     add_header Content-Security-Policy "connect-src 'self' ws: wss: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.tacc.utexas.edu" always;
     add_header X-XSS-Protection "1; mode=block" always;
-
-    location /media  {
-        alias /var/www/portal/cms/media;
-    }
-
-    location /static {
-        alias /var/www/portal/cms/static;
-    }
-
-    location / {
-        uwsgi_read_timeout 60s;
-        uwsgi_send_timeout 600s;
-        uwsgi_pass  portal_cms;
-        include     /etc/nginx/uwsgi_params;
-    }
-
-    location /core/media  {
-        alias /var/www/portal/portal/media;
-    }
-
-    location /core/static {
-        alias /var/www/portal/portal/static;
-    }
-
-    location /build {
-        alias /var/www/portal/portal/static;
-    }
-
-    location /static/img/favicon.ico {
-        alias /var/www/portal/portal/static/favicon.ico;
-    }
-
-    location /favicon.ico {
-        alias /var/www/portal/portal/static/favicon.ico;
-    }
 
     ## Include any custom location directives
     include /etc/nginx/conf.d/*.location.conf;
