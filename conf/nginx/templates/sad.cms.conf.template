@@ -1,0 +1,81 @@
+client_max_body_size 2G;
+
+# Extra slashes matter to Tapis
+merge_slashes off;
+
+upstream portal_cms {
+    server portal_cms:8000;
+    keepalive 2;
+}
+
+## Include any custom http directives
+include /etc/nginx/conf.d/*.http.conf;
+
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name ${NGINX_SERVER_NAME};
+    return 301 https://$server_name$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on;
+    server_name ${NGINX_SERVER_NAME};
+
+    if ($host != $server_name) {
+        rewrite ^(.*)$ https://$server_name$1;
+    }
+
+    ssl_certificate     /etc/ssl/certs/portal.cer;
+    ssl_certificate_key /etc/ssl/private/portal.key;
+
+    add_header Permissions-Policy "autoplay=(), camera=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=()" always;
+    add_header Referrer-Policy 'strict-origin' always;
+    add_header Strict-Transport-Security "max-age=2592000; includeSubDomains" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Content-Security-Policy "connect-src 'self' ws: wss: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.tacc.utexas.edu" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+
+    location /media  {
+        alias /var/www/portal/cms/media;
+    }
+
+    location /static {
+        alias /var/www/portal/cms/static;
+    }
+
+    location / {
+        uwsgi_read_timeout 60s;
+        uwsgi_send_timeout 600s;
+        uwsgi_pass  portal_cms;
+        include     /etc/nginx/uwsgi_params;
+    }
+
+    location /core/media  {
+        alias /var/www/portal/portal/media;
+    }
+
+    location /core/static {
+        alias /var/www/portal/portal/static;
+    }
+
+    location /build {
+        alias /var/www/portal/portal/static;
+    }
+
+    location /static/img/favicon.ico {
+        alias /var/www/portal/portal/static/favicon.ico;
+    }
+
+    location /favicon.ico {
+        alias /var/www/portal/portal/static/favicon.ico;
+    }
+
+    ## Include any custom location directives
+    include /etc/nginx/conf.d/*.location.conf;
+}
+
+## Include any custom server directives
+include /etc/nginx/conf.d/*.server.conf;

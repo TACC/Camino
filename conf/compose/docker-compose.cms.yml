@@ -3,6 +3,8 @@ services:
   cms:
     image: ${CMS_IMAGE}:${CMS_TAG}
     volumes:
+      - ${CAMINO_HOME}/conf/cms/settings_custom.py:/code/taccsite_cms/settings_custom.py:ro
+      - ${CAMINO_HOME}/conf/cms/settings_local.py:/code/taccsite_cms/settings_local.py:ro
       - ${CAMINO_HOME}/conf/cms/secrets.py:/code/taccsite_cms/secrets.py:ro
       - ${CAMINO_HOME}/conf/uwsgi/uwsgi_cms.ini:/code/uwsgi.ini
       - /var/www/portal/cms/static:/code/static

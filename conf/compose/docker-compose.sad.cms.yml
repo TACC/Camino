@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  nginx:
+    extends:
+      file: ${CAMINO_HOME}/conf/compose/docker-compose.nginx.yml
+      service: nginx
+    volumes:
+      - ${CAMINO_HOME}/conf/nginx/templates/sad.cms.conf.template:/etc/nginx/templates/default.conf.template
+      - /var/www/portal/cms/static:/var/www/portal/cms/static
+      - /var/www/portal/cms/media:/var/www/portal/cms/media
+
+  cms:
+    extends:
+      file: docker-compose.cms.yml
+      service: cms
