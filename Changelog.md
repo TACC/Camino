@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2024-01-05: Stand Alone Deployment Support
+
+### Added
+
+- WI-57, WI-71: Update to support SAD CMS, Full Portal, and services from same branch (#43)
+
+### Fixed
+
+- Fix http2 directive when using latest nginx image
+
 ## [2.10.0] - 2024-01-05: Add XSS Protection Header
 
 ### Changed
@@ -131,7 +141,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2020-05-06
 v1.0.0 Production release as of May 6, 2020.
 
-[unreleased]: https://github.com/TACC/Camino/compare/v2.10.0...HEAD
+[unreleased]: https://github.com/TACC/Camino/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/TACC/Camino/releases/tag/v3.0.0
 [2.10.0]: https://github.com/TACC/Camino/releases/tag/v2.10.0
 [2.9.1]: https://github.com/TACC/Camino/releases/tag/v2.9.1
 [2.9.0]: https://github.com/TACC/Camino/releases/tag/v2.9.0
