@@ -19,14 +19,9 @@ server {
 }
 
 server {
-<<<<<<< HEAD
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-=======
     listen 443 ssl;
     listen [::]:443 ssl;
     http2 on;
->>>>>>> main
     server_name ${NGINX_SERVER_NAME};
 
     if ($host != $server_name) {
