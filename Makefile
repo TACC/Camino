@@ -45,17 +45,20 @@ deploy:
 	$(DOCKER_COMPOSE) pull $(service)
 	$(DOCKER_COMPOSE) stop $(service)
 	$(DOCKER_COMPOSE) up -d $(service)
+ifdef POST_DEPLOY_SCRIPT
+	chmod +x ${CAMINO_HOME}/conf/camino/${POST_DEPLOY_SCRIPT} && ${CAMINO_HOME}/conf/camino/${POST_DEPLOY_SCRIPT}
+endif
 	$(DOCKER_COMPOSE) restart nginx
 
-.PHONY: deploy-all
+.PHONY: deploy-all-service
 deploy-all-service:
 	$(DOCKER_COMPOSE) pull
 	$(DOCKER_COMPOSE) stop
 	$(DOCKER_COMPOSE) up -d
-	$(DOCKER_COMPOSE) restart nginx
-	ifdef POST_DEPLOY_SCRIPT
+ifdef POST_DEPLOY_SCRIPT
 	chmod +x ${CAMINO_HOME}/conf/camino/${POST_DEPLOY_SCRIPT} && ${CAMINO_HOME}/conf/camino/${POST_DEPLOY_SCRIPT}
-	endif
+endif
+	$(DOCKER_COMPOSE) restart nginx
 
 .PHONY: migrate
 migrate:
