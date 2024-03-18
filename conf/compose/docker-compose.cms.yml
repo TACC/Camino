@@ -7,6 +7,7 @@ services:
       - ${CAMINO_HOME}/conf/cms/settings_local.py:/code/taccsite_cms/settings_local.py:ro
       - ${CAMINO_HOME}/conf/cms/secrets.py:/code/taccsite_cms/secrets.py:ro
       - ${CAMINO_HOME}/conf/uwsgi/uwsgi_cms.ini:/code/uwsgi.ini
+      - ${CAMINO_HOME}/conf/uwsgi/uwsgi_params:/etc/nginx/uwsgi_params
       - /var/www/portal/cms/static:/code/static
       - /var/www/portal/cms/media:/code/media
     command: ["uwsgi", "--ini", "uwsgi.ini"]
