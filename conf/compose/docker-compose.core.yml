@@ -6,6 +6,7 @@ services:
       - ${CAMINO_HOME}/conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py:ro
       - ${CAMINO_HOME}/conf/portal/settings_custom.py:/srv/www/portal/server/portal/settings/settings_custom.py
       - ${CAMINO_HOME}/conf/uwsgi/uwsgi_core.ini:/srv/www/portal/server/conf/uwsgi/uwsgi_core.ini
+      - ${CAMINO_HOME}/conf/uwsgi/uwsgi_params:/etc/nginx/uwsgi_params
       - /var/www/portal/portal/media:/srv/www/portal/server/media
       - /var/www/portal/portal/static:/srv/www/portal/server/static
     stdin_open: true
