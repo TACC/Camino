@@ -50,8 +50,8 @@ ifdef POST_DEPLOY_SCRIPT
 endif
 	$(DOCKER_COMPOSE) restart nginx
 
-.PHONY: deploy-all-service
-deploy-all-service:
+.PHONY: deploy-all
+deploy-all:
 	$(DOCKER_COMPOSE) pull
 	$(DOCKER_COMPOSE) stop
 	$(DOCKER_COMPOSE) up -d
