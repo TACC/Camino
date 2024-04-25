@@ -48,6 +48,10 @@ server {
     add_header Content-Security-Policy "connect-src 'self' ws: wss: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.tacc.utexas.edu" always;
     add_header X-XSS-Protection "1; mode=block" always;
 
+    if ($http_user_agent ~* "claudebot|anthropic") {
+        return 403;
+    }
+
     location /media  {
         alias /var/www/portal/cms/media;
     }
