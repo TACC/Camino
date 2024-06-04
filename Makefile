@@ -52,8 +52,8 @@ restart:
 	$(DOCKER_COMPOSE) stop $(service)
 	$(DOCKER_COMPOSE) up --force-recreate -d $(service)
 
-.PHONY: deploy
-deploy:
+.PHONY: deploy-service
+deploy-service:
 	$(DOCKER_COMPOSE) pull $(service)
 	$(DOCKER_COMPOSE) stop $(service)
 	$(DOCKER_COMPOSE) up -d $(service)
