@@ -7,6 +7,10 @@ ifndef CAMINO_HOME
 override CAMINO_HOME := $(dir $(lastword $(abspath $(MAKEFILE_LIST))))
 endif
 
+ifndef COMPOSE_COMMAND
+override COMPOSE_COMMAND := docker compose
+endif
+
 ifdef BASE_COMPOSE_FILE
 override BASE_COMPOSE = -f ${CAMINO_HOME}/conf/compose/${BASE_COMPOSE_FILE}
 else
@@ -19,7 +23,7 @@ else
 override COMPOSE =
 endif
 
-DOCKER_COMPOSE :=  docker compose ${BASE_COMPOSE} ${COMPOSE} --env-file=$(ENV_FILE)
+DOCKER_COMPOSE :=  ${COMPOSE_COMMAND} ${BASE_COMPOSE} ${COMPOSE} --env-file=$(ENV_FILE)
 
 .PHONY: deploy-docs
 deploy-docs:
