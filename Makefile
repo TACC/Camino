@@ -7,48 +7,23 @@ ifndef CAMINO_HOME
 override CAMINO_HOME := $(dir $(lastword $(abspath $(MAKEFILE_LIST))))
 endif
 
-ifndef BASE_COMPOSE_FILE
-override BASE_COMPOSE = -f ${CAMINO_HOME}/conf/compose/docker-compose.core.cms.yml
-else
+ifndef COMPOSE_COMMAND
+override COMPOSE_COMMAND := docker compose
+endif
+
+ifdef BASE_COMPOSE_FILE
 override BASE_COMPOSE = -f ${CAMINO_HOME}/conf/compose/${BASE_COMPOSE_FILE}
-endif
-
-ifndef COMPOSE_FILE
-override COMPOSE_OVERRIDE =
 else
-override COMPOSE_OVERRIDE = -f ${CAMINO_HOME}/conf/camino/${COMPOSE_FILE}
+override BASE_COMPOSE =
 endif
 
-DOCKER_COMPOSE :=  docker compose ${BASE_COMPOSE} ${COMPOSE_OVERRIDE} --env-file=$(ENV_FILE)
+ifdef COMPOSE_FILE
+override COMPOSE = -f ${CAMINO_HOME}/conf/camino/${COMPOSE_FILE}
+else
+override COMPOSE =
+endif
 
-.PHONY: deploy-core
-deploy-core:
-	$(DOCKER_COMPOSE) pull core websockets workers
-	$(DOCKER_COMPOSE) stop core websockets workers
-	$(DOCKER_COMPOSE) up -d
-	docker exec portal_django python3 manage.py migrate
-	docker exec portal_django python3 manage.py collectstatic --noinput --clear
-	$(DOCKER_COMPOSE) restart nginx
-
-.PHONY: deploy-cms
-deploy-cms:
-	$(DOCKER_COMPOSE) pull cms
-	$(DOCKER_COMPOSE) stop cms
-	$(DOCKER_COMPOSE) up -d
-	docker exec portal_cms python3 manage.py migrate
-	docker exec portal_cms python3 manage.py collectstatic --noinput --clear
-	$(DOCKER_COMPOSE) restart nginx
-
-.PHONY: deploy-all
-deploy-all:
-	$(DOCKER_COMPOSE) pull
-	$(DOCKER_COMPOSE) stop
-	$(DOCKER_COMPOSE) up -d
-	docker exec portal_django python3 manage.py migrate
-	docker exec portal_django python3 manage.py collectstatic --noinput --clear
-	docker exec portal_cms python3 manage.py migrate
-	docker exec portal_cms python3 manage.py collectstatic --noinput --clear
-	$(DOCKER_COMPOSE) restart nginx
+DOCKER_COMPOSE :=  ${COMPOSE_COMMAND} ${BASE_COMPOSE} ${COMPOSE} --env-file=$(ENV_FILE)
 
 .PHONY: deploy-docs
 deploy-docs:
@@ -81,18 +56,24 @@ restart:
 	$(DOCKER_COMPOSE) stop $(service)
 	$(DOCKER_COMPOSE) up --force-recreate -d $(service)
 
-.PHONY: deploy
-deploy:
+.PHONY: deploy-service
+deploy-service:
 	$(DOCKER_COMPOSE) pull $(service)
 	$(DOCKER_COMPOSE) stop $(service)
 	$(DOCKER_COMPOSE) up -d $(service)
+ifdef POST_DEPLOY_SCRIPT
+	chmod +x ${CAMINO_HOME}/conf/camino/${POST_DEPLOY_SCRIPT} && ${CAMINO_HOME}/conf/camino/${POST_DEPLOY_SCRIPT}
+endif
 	$(DOCKER_COMPOSE) restart nginx
 
-.PHONY: deploy-all-service
-deploy-all-service:
+.PHONY: deploy-all
+deploy-all:
 	$(DOCKER_COMPOSE) pull
 	$(DOCKER_COMPOSE) stop
 	$(DOCKER_COMPOSE) up -d
+ifdef POST_DEPLOY_SCRIPT
+	chmod +x ${CAMINO_HOME}/conf/camino/${POST_DEPLOY_SCRIPT} && ${CAMINO_HOME}/conf/camino/${POST_DEPLOY_SCRIPT}
+endif
 	$(DOCKER_COMPOSE) restart nginx
 
 .PHONY: migrate
