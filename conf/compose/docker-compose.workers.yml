@@ -7,7 +7,8 @@ services:
     volumes:
       - ${CAMINO_HOME}/conf/portal/settings_secret.py:/srv/www/portal/server/portal/settings/settings_secret.py:ro
       - ${CAMINO_HOME}/conf/portal/settings_custom.py:/srv/www/portal/server/portal/settings/settings_custom.py
-    command: "celery -A portal worker -Q default,indexing,files,api,onboard --concurrency=10"
+    command: sh -c "celery -A portal beat -l info --pidfile= --schedule=/tmp/celerybeat-schedule & 
+             celery -A portal worker -Q default,indexing,files,api,onboard --concurrency=2"
     container_name: portal_workers
     logging:
       driver: syslog
