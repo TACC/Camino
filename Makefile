@@ -17,19 +17,14 @@ else
 override BASE_COMPOSE =
 endif
 
+# COMPOSE_FILE can be a single file or space-separated files
 ifdef COMPOSE_FILE
-override COMPOSE = -f ${CAMINO_HOME}/conf/camino/${COMPOSE_FILE}
+COMPOSE := $(foreach file,$(COMPOSE_FILE),-f $(CAMINO_HOME)/conf/camino/$(file))
 else
-override COMPOSE =
+COMPOSE :=
 endif
 
-ifdef ADDITIONAL_COMPOSE_FILE
-override ADDITIONAL_COMPOSE = -f ${CAMINO_HOME}/conf/camino/${ADDITIONAL_COMPOSE_FILE}
-else
-override ADDITIONAL_COMPOSE =
-endif
-
-DOCKER_COMPOSE :=  ${COMPOSE_COMMAND} ${BASE_COMPOSE} ${COMPOSE} ${ADDITIONAL_COMPOSE} --env-file=$(ENV_FILE)
+DOCKER_COMPOSE :=  ${COMPOSE_COMMAND} ${BASE_COMPOSE} ${COMPOSE} --env-file=$(ENV_FILE)
 
 .PHONY: deploy-docs
 deploy-docs:
