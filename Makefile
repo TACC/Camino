@@ -23,7 +23,13 @@ else
 override COMPOSE =
 endif
 
-DOCKER_COMPOSE :=  ${COMPOSE_COMMAND} ${BASE_COMPOSE} ${COMPOSE} --env-file=$(ENV_FILE)
+ifdef ADDITIONAL_COMPOSE_FILE
+override ADDITIONAL_COMPOSE = -f ${CAMINO_HOME}/conf/camino/${ADDITIONAL_COMPOSE_FILE}
+else
+override ADDITIONAL_COMPOSE =
+endif
+
+DOCKER_COMPOSE :=  ${COMPOSE_COMMAND} ${BASE_COMPOSE} ${COMPOSE} ${ADDITIONAL_COMPOSE} --env-file=$(ENV_FILE)
 
 .PHONY: deploy-docs
 deploy-docs:
