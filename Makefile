@@ -19,9 +19,9 @@ endif
 
 # COMPOSE_FILE can be a single file or space-separated files
 ifdef COMPOSE_FILE
-COMPOSE := $(foreach file,$(COMPOSE_FILE),-f $(CAMINO_HOME)/conf/camino/$(file))
+override COMPOSE = $(foreach file,$(COMPOSE_FILE),-f $(CAMINO_HOME)/conf/camino/$(file))
 else
-COMPOSE :=
+override COMPOSE =
 endif
 
 DOCKER_COMPOSE :=  ${COMPOSE_COMMAND} ${BASE_COMPOSE} ${COMPOSE} --env-file=$(ENV_FILE)
