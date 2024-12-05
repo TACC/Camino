@@ -23,6 +23,12 @@ else
 override COMPOSE =
 endif
 
+ifdef ROBOTS_TXT
+override ROBOTS_TXT_PATH = ${CAMINO_HOME}/conf/camino/${ROBOTS_TXT}
+else
+override ROBOTS_TXT_PATH = ${CAMINO_HOME}/conf/nginx/robots.txt.default
+endif
+
 DOCKER_COMPOSE :=  ${COMPOSE_COMMAND} ${BASE_COMPOSE} ${COMPOSE} --env-file=$(ENV_FILE)
 
 .PHONY: deploy-docs

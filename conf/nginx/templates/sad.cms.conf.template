@@ -38,6 +38,10 @@ server {
     add_header Content-Security-Policy "connect-src 'self' ws: wss: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.tacc.utexas.edu" always;
     add_header X-XSS-Protection "1; mode=block" always;
 
+    location /robots.txt {
+        alias /var/www/robots.txt;
+    }
+
     location /media  {
         alias /var/www/portal/cms/media;
     }
