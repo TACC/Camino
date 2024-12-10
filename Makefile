@@ -30,7 +30,7 @@ else
 override ROBOTS_TXT_PATH = ${CAMINO_HOME}/conf/nginx/robots.txt.default
 endif
 
-DOCKER_COMPOSE :=  ${COMPOSE_COMMAND} ${BASE_COMPOSE} ${COMPOSE} --env-file=$(ENV_FILE)
+DOCKER_COMPOSE := ROBOTS_TXT_PATH=${ROBOTS_TXT_PATH} ${COMPOSE_COMMAND} ${BASE_COMPOSE} ${COMPOSE} --env-file=$(ENV_FILE)
 
 .PHONY: deploy-docs
 deploy-docs:
