@@ -52,6 +52,10 @@ server {
         return 403;
     }
 
+    location /robots.txt {
+        alias /var/www/robots.txt;
+    }
+
     location /media  {
         alias /var/www/portal/cms/media;
     }
