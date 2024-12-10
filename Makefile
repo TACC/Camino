@@ -17,8 +17,9 @@ else
 override BASE_COMPOSE =
 endif
 
+# COMPOSE_FILE can be a single file or space-separated files
 ifdef COMPOSE_FILE
-override COMPOSE = -f ${CAMINO_HOME}/conf/camino/${COMPOSE_FILE}
+override COMPOSE = $(foreach file,$(COMPOSE_FILE),-f $(CAMINO_HOME)/conf/camino/$(file))
 else
 override COMPOSE =
 endif

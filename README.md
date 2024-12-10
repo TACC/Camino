@@ -59,7 +59,7 @@ Deploying with Jenkins:
 2. If required, update the service's image reference in the appropriate compose file as described above
 3. Go to [Frontera_Deployments](https://jenkins01.tacc.utexas.edu/view/Frontera%20Web/job/Frontera_Deploy/) in Jenkins and start a build, selecting environment and component/service
 
-A Makefile is included to faciliate manual deployment.
+A Makefile is included to facilitate manual deployment.
 
 Steps for manually deploying service:
 
