@@ -27,7 +27,7 @@ endif
 DOCKER_COMPOSE := ${COMPOSE_COMMAND} ${BASE_COMPOSE} ${COMPOSE} --env-file=$(pwd)/$(ENV_FILE)
 
 # This command uses an Alpine linux image to run a script to add a post-renew hook to letsencrypt 
-CERT_SCRIPT_COMMAND := docker run -e DOCKER_COMPOSE=${DOCKER_COMPOSE} -v /etc/letsencrypt:/etc/letsencrypt -v ${CAMINO_HOME}/conf/scripts/post-renew.sh:/opt-post-renew.sh alpine:3 /bin/sh -c "chmod +x /opt/post-renew.sh && /opt/post-renew.sh"
+PLACE_RENEWAL_HOOK := docker run -e DOCKER_COMPOSE=${DOCKER_COMPOSE} -v /etc/letsencrypt:/etc/letsencrypt -v ${CAMINO_HOME}/conf/scripts/post-renew.sh:/opt-post-renew.sh alpine:3 /bin/sh -c "chmod +x /opt/post-renew.sh && /opt/post-renew.sh"
 
 .PHONY: deploy-docs
 deploy-docs:
@@ -79,7 +79,7 @@ ifdef POST_DEPLOY_SCRIPT
 	chmod +x ${CAMINO_HOME}/conf/camino/${POST_DEPLOY_SCRIPT} && ${CAMINO_HOME}/conf/camino/${POST_DEPLOY_SCRIPT} all
 endif
 	$(DOCKER_COMPOSE) restart nginx
-	$(CERT_SCRIPT_COMMAND)
+	$(PLACE_RENEWAL_HOOK)
 
 .PHONY: migrate
 migrate:
