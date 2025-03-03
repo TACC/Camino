@@ -85,6 +85,10 @@ endif
 migrate:
 	$(DOCKER_COMPOSE) exec $(service) python3 manage.py migrate
 
+.PHONY: place-renewal-hook
+place-renewal-hook:
+	$(PLACE_RENEWAL_HOOK)
+
 .PHONY: collectstatic
 collectstatic:
 	$(DOCKER_COMPOSE) exec $(service) python3 manage.py collectstatic --noinput
