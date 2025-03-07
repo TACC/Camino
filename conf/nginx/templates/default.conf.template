@@ -86,7 +86,7 @@ server {
         include     /etc/nginx/uwsgi_params;
     }
 
-    location ~ ^/(auth|workbench|tickets|accounts|api|publications|login|webhooks|googledrive-privacy-policy|public-data|search) {
+    location ~ ^/(auth|workbench|tickets|accounts|api|login|webhooks|googledrive-privacy-policy|public-data|search) {
         uwsgi_read_timeout 60s;
         uwsgi_send_timeout 600s;
         uwsgi_pass  portal_core;
