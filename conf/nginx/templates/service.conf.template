@@ -27,7 +27,7 @@ server {
     add_header Referrer-Policy 'strict-origin' always;
     add_header Strict-Transport-Security "max-age=2592000; includeSubDomains" always;
     add_header X-Content-Type-Options "nosniff" always;
-    add_header Content-Security-Policy "connect-src 'self' ws: wss: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.github.com https://*.tacc.utexas.edu" always;
+    add_header Content-Security-Policy "connect-src 'self' ws: wss: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.tacc.utexas.edu" always;
     add_header X-XSS-Protection "1; mode=block" always;
 
     ## Include any custom location directives

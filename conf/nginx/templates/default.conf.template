@@ -51,7 +51,7 @@ server {
     add_header Referrer-Policy 'strict-origin' always;
     add_header Strict-Transport-Security "max-age=2592000; includeSubDomains" always;
     add_header X-Content-Type-Options "nosniff" always;
-    add_header Content-Security-Policy "form-action 'none'; connect-src 'self' ws: wss: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.tacc.utexas.edu" 'nonce-$cspNonce' always;
+    add_header Content-Security-Policy "form-action 'none'; connect-src 'self' ws: wss: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.github.com https://*.tacc.utexas.edu" 'nonce-$cspNonce' always;
     add_header X-XSS-Protection "1; mode=block" always;
     add_header Cache-control "no-store";
     add_header Pragma "no-cache";
