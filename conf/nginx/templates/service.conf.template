@@ -23,17 +23,11 @@ server {
     ssl_certificate     /etc/ssl/certs/portal.cer;
     ssl_certificate_key /etc/ssl/private/portal.key;
 
-    set $cspNonce $ssl_session_id
-
-    sub_filter_once off;
-    sub_filter_types *;
-    sub_filter CSP_NONCE $cspNonce;
-
     add_header Permissions-Policy "autoplay=(), camera=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=()" always;
     add_header Referrer-Policy 'strict-origin' always;
     add_header Strict-Transport-Security "max-age=2592000; includeSubDomains" always;
     add_header X-Content-Type-Options "nosniff" always;
-    add_header Content-Security-Policy "connect-src 'self' ws: wss: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.github.com https://*.tacc.utexas.edu" always;
+    add_header Content-Security-Policy "connect-src 'self' ws: wss: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.tacc.utexas.edu" always;
     add_header X-XSS-Protection "1; mode=block" always;
 
     ## Include any custom location directives
