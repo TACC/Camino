@@ -41,7 +41,7 @@ server {
     ssl_certificate     /etc/ssl/certs/portal.cer;
     ssl_certificate_key /etc/ssl/private/portal.key;
 
-    set $cspNonce $ssl_session_id
+    set $cspNonce $ssl_session_id;
 
     sub_filter_once off;
     sub_filter_types *;
