@@ -44,6 +44,7 @@ server {
     # deployment in Core-Portal-Deployments).
     #
     add_header Content-Security-Policy "connect-src 'self' ws: wss: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.tacc.utexas.edu" ${csp_connect_extra} always;
+
     add_header X-XSS-Protection "1; mode=block" always;
 
     location /robots.txt {
