@@ -49,7 +49,7 @@ down:
 
 .PHONY: up
 up:
-	$(DOCKER_COMPOSE) up -d $(service)
+	$(DOCKER_COMPOSE) up --force-recreate -d $(service)
 
 .PHONY: pull
 pull:
