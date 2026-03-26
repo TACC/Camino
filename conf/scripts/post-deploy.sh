@@ -8,7 +8,27 @@ if [[ -n "$(docker ps -q -f name=^/portal_django$)" && ("$service" == *"core"* |
   docker exec portal_django python3 manage.py collectstatic --noinput --clear
 
   # Delete all sessions to force users to log out after deployment
+  # (KNOWN TODO: delete just expired sessions)
   docker exec portal_django python3 manage.py shell -c "from django.contrib.sessions.models import Session; Session.objects.all().delete()"
+
+  # Delete Tapis tokens for users who do not have an active session
+  docker exec portal_django python3 manage.py shell -c "
+from django.contrib.sessions.models import Session
+from portal.apps.auth.models import TapisOAuthToken
+
+users_with_active_sessions = set()
+for session in Session.objects.all():
+    data = session.get_decoded()
+    uid = data.get('_auth_user_id')
+    if uid:
+        users_with_active_sessions.add(int(uid))
+
+stale_tokens = TapisOAuthToken.objects.exclude(user_id__in=users_with_active_sessions)
+for token in stale_tokens:
+    print(f'Removing stale token for user: {token.user.username}')
+count = stale_tokens.delete()[0]
+print(f'Deleted {count} Tapis tokens for users without active sessions')
+"
 fi
 
 if [[ -n "$(docker ps -q -f name=^/portal_cms$)" && ("$service" == *"cms"* || "$service" == "all") ]]; then
