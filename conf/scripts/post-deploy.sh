@@ -26,7 +26,7 @@ count = stale_tokens.delete()[0]
 print(f'Deleted {count} Tapis tokens for users without active sessions')
 "
 
-  # Delete all sessions to force users to log out after deployment
+  # Delete all expired sessions
   docker exec portal_django python3 manage.py clearsessions
 fi
 
