@@ -7,6 +7,9 @@ if [[ -n "$(docker ps -q -f name=^/portal_django$)" && ("$service" == *"core"* |
   docker exec portal_django python3 manage.py migrate
   docker exec portal_django python3 manage.py collectstatic --noinput --clear
 
+  # Delete all expired sessions
+  docker exec portal_django python3 manage.py clearsessions
+
   # Delete Tapis tokens for users who do not have an active session
   docker exec portal_django python3 manage.py shell -c "
 from django.contrib.sessions.models import Session
@@ -25,9 +28,6 @@ for token in stale_tokens:
 count = stale_tokens.delete()[0]
 print(f'Deleted {count} Tapis tokens for users without active sessions')
 "
-
-  # Delete all expired sessions
-  docker exec portal_django python3 manage.py clearsessions
 fi
 
 if [[ -n "$(docker ps -q -f name=^/portal_cms$)" && ("$service" == *"cms"* || "$service" == "all") ]]; then
