@@ -24,7 +24,7 @@ for session in Session.objects.all():
 
 stale_tokens = TapisOAuthToken.objects.exclude(user_id__in=users_with_active_sessions)
 for token in stale_tokens:
-    print(f'Removing stale token for user: {token.user.username}')
+    print(f'Removing Tapis token for inactive user: {token.user.username}')
 count = stale_tokens.delete()[0]
 print(f'Deleted {count} Tapis tokens for users without active sessions')
 "
