@@ -37,5 +37,5 @@ if [[ -n "$(docker ps -q -f name=^/portal_cms$)" && ("$service" == *"cms"* || "$
   docker exec portal_cms python3 manage.py collectstatic --noinput --clear
 
   # Delete all expired sessions
-  docker exec portal_django python3 manage.py clearsessions
+  docker exec portal_cms python3 manage.py clearsessions
 fi
