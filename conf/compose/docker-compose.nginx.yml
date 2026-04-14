@@ -9,7 +9,6 @@ services:
       - ${CAMINO_HOME}/conf/nginx/templates/default.conf.template:/etc/nginx/templates/default.conf.template
       # Per-service CSP domains used by service.conf.template
       - ${CAMINO_HOME}/conf/nginx/templates/csp-map.http.conf:/etc/nginx/conf.d/csp-map.http.conf:ro
-      - ${CAMINO_HOME}/conf/nginx/templates/csp-map-assets.http.conf:/etc/nginx/conf.d/csp-map-assets.http.conf:ro
       - ${CAMINO_HOME}/conf/nginx/robots.txt.default:/var/www/robots.txt:ro
       - /etc/ssl/dhparam.pem:/etc/ssl/dhparam.pem:ro
     ports:

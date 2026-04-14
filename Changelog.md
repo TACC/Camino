@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Optional `$csp_font_extra` for `service.conf.template` CSP `font-src` (#73).
+- Optional `$csp_style_extra`, `$csp_script_extra`, and `$csp_font_extra` maps in `csp-map.http.conf` for `service.conf.template` CSP (#73).
 
 ## [3.1.0] - 2024-04-25: Block Anthropic and ClaudeBot Crawlers
 

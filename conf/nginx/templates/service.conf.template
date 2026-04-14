@@ -36,8 +36,8 @@ server {
 
     # CSP 'connect-src' / 'style-src' / 'script-src' / 'font-src':
     #   Shared domains (e.g. google analytics) are listed below. Service-specific domains
-    #   are appended via $csp_connect_extra (csp-map.http.conf) and $csp_style_extra /
-    #   $csp_script_extra / $csp_font_extra (csp-map-assets.http.conf), overridable per
+    #   are appended via $csp_connect_extra / $csp_style_extra / $csp_script_extra /
+    #   $csp_font_extra (csp-map.http.conf), overridable per
     #   deployment in Core-Portal-Deployments.
     #
     # CSP 'frame-ancestors':
