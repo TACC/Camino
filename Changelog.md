@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Optional `$csp_font_extra` for `service.conf.template` CSP `font-src` (#73).
+
 ## [3.1.0] - 2024-04-25: Block Anthropic and ClaudeBot Crawlers
 
 ### Changed
