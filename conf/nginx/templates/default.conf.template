@@ -59,7 +59,7 @@ server {
     # are appended via $csp_connect_extra, defined in csp-map.http.conf (overridable per
     # deployment in Core-Portal-Deployments).
     #
-    add_header Content-Security-Policy "form-action 'self'; connect-src 'self' ws: wss: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.tacc.utexas.edu https://*.tapis.io https://*.github.com ${csp_connect_extra} 'nonce-$cspNonce'" always;
+    add_header Content-Security-Policy "form-action 'self'; connect-src 'self' ws: wss: https://cdn.jsdelivr.net https://pypi.org https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.tacc.utexas.edu https://*.tapis.io https://*.github.com ${csp_connect_extra} 'nonce-$cspNonce'" always;
 
     add_header X-XSS-Protection "1; mode=block" always;
     add_header Cache-control "no-store";
@@ -132,11 +132,11 @@ server {
     }
 
     location /static/img/favicon.ico {
-        alias /var/www/portal/portal/static/favicon.ico;
+        alias /var/www/portal/cms/static/site_cms/img/favicons/favicon.ico;
     }
 
     location /favicon.ico {
-        alias /var/www/portal/portal/static/favicon.ico;
+        alias /var/www/portal/cms/static/site_cms/img/favicons/favicon.ico;
     }
 
     ## Include any custom location directives

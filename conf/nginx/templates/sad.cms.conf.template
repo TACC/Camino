@@ -49,7 +49,7 @@ server {
     #
     # CSP 'frame-ancestors':
     #   Allows services to be iframed into TACC portals (e.g. Imageinf iframed into CEP).
-    add_header Content-Security-Policy "connect-src 'self' ws: wss: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.tacc.utexas.edu ${csp_connect_extra}; frame-ancestors 'self' https://*.tacc.utexas.edu; form-action 'self';" always;
+    add_header Content-Security-Policy "connect-src 'self' ws: wss: https://cdn.jsdelivr.net https://pypi.org https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.tacc.utexas.edu ${csp_connect_extra}; frame-ancestors 'self' https://*.tacc.utexas.edu; form-action 'self';" always;
 
     add_header X-XSS-Protection "1; mode=block" always;
 
@@ -85,11 +85,11 @@ server {
     }
 
     location /static/img/favicon.ico {
-        alias /var/www/portal/portal/static/favicon.ico;
+        alias /var/www/portal/cms/static/site_cms/img/favicons/favicon.ico;
     }
 
     location /favicon.ico {
-        alias /var/www/portal/portal/static/favicon.ico;
+        alias /var/www/portal/cms/static/site_cms/img/favicons/favicon.ico;
     }
 
     ## Include any custom location directives
