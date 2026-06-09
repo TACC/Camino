@@ -47,3 +47,4 @@ conf/camino/*
 rabbitmq.env
 conf/portal/*
 !conf/portal/*example.*
+.vscode/
