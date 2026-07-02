@@ -48,6 +48,10 @@ server {
         alias /var/www/robots.txt;
     }
 
+    location = /favicon.ico {
+        alias /var/www/portal/cms/static/site_cms/img/favicons/favicon.ico;
+    }
+
     location = /static/img/favicon.ico {
         alias /var/www/portal/cms/static/site_cms/img/favicons/favicon.ico;
     }
