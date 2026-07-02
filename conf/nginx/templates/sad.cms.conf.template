@@ -88,6 +88,10 @@ server {
         alias /var/www/portal/cms/static/site_cms/img/favicons/favicon.ico;
     }
 
+    location /favicon.ico {
+        alias /var/www/portal/cms/static/site_cms/img/favicons/favicon.ico;
+    }
+
     ## Include any custom location directives
     include /etc/nginx/conf.d/*.location.conf;
 }
