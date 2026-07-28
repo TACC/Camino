@@ -49,6 +49,8 @@ server {
     #
     # CSP 'frame-ancestors':
     #   Allows services to be iframed into TACC portals (e.g. Imageinf iframed into CEP).
+    #
+    # `syndicatedsearch.goog` is required or Google Custom Search can throw and fail to render.
     add_header Content-Security-Policy "connect-src 'self' ws: wss: https://cdn.jsdelivr.net https://pypi.org https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://syndicatedsearch.goog https://*.tacc.utexas.edu ${csp_connect_extra}; frame-ancestors 'self' https://*.tacc.utexas.edu; form-action 'self';" always;
 
     add_header X-XSS-Protection "1; mode=block" always;
