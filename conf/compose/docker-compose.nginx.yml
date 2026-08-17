@@ -7,7 +7,7 @@ services:
       - ${CAMINO_HOME}/conf/nginx/templates/default.conf.template:/etc/nginx/templates/default.conf.template
       - ${CAMINO_HOME}/conf/nginx/snippets/cep-headers.conf:/etc/nginx/snippets/cep-headers.conf:ro
       # Per-service CSP domains used by service.conf.template
-      - ${CAMINO_HOME}/conf/nginx/templates/csp-map.http.conf:/etc/nginx/conf.d/csp-map.http.conf:ro
+      - ${CAMINO_HOME}/conf/nginx/templates/csp-map.http.conf.template:/etc/nginx/templates/csp-map.http.conf.template
       - ${CAMINO_HOME}/conf/nginx/robots.txt.default:/var/www/robots.txt:ro
       - /etc/ssl/dhparam.pem:/etc/ssl/dhparam.pem:ro
     ports:
