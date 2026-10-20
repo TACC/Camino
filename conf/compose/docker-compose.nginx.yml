@@ -10,6 +10,8 @@ services:
       - ${CAMINO_HOME}/conf/nginx/templates/csp-map.http.conf:/etc/nginx/conf.d/csp-map.http.conf:ro
       # Per-path Cache-Control used by cep-headers.conf
       - ${CAMINO_HOME}/conf/nginx/templates/cache-map.http.conf:/etc/nginx/conf.d/cache-map.http.conf:ro
+      # Pragma derived from that Cache-Control, used by cep-headers.conf (not for deployments to override)
+      - ${CAMINO_HOME}/conf/nginx/templates/pragma-map.http.conf:/etc/nginx/conf.d/pragma-map.http.conf:ro
       - ${CAMINO_HOME}/conf/nginx/robots.txt.default:/var/www/robots.txt:ro
       - /etc/ssl/dhparam.pem:/etc/ssl/dhparam.pem:ro
     ports:
