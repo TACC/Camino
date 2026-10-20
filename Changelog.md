@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `cache-map.http.conf`: a deployment can map paths to their own `Cache-Control` value by mounting its own copy. The default keeps every response `no-store`, as before.
+- `pragma-map.http.conf`: `Pragma: no-cache` is sent only with `Cache-Control: no-store`, so a path a deployment makes cacheable doesn't also carry a contradictory `Pragma`. Every other response is unchanged.
+
 ## [3.1.0] - 2024-04-25: Block Anthropic and ClaudeBot Crawlers
 
 ### Changed
