@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   redis:
-    image: redis:5.0
+    image: redis:7
     volumes:
       - portal_redis_data:/data
     container_name: portal_redis
