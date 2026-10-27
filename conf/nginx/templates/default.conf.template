@@ -44,6 +44,13 @@ server {
     # Include default security headers
     include /etc/nginx/snippets/cep-headers.conf;
 
+    location ^~ /csp-report/ {
+        uwsgi_read_timeout 60s;
+        uwsgi_send_timeout 600s;
+        uwsgi_pass  portal_core;
+        include     /etc/nginx/uwsgi_params;
+    }
+
     location = /robots.txt {
         alias /var/www/robots.txt;
     }
