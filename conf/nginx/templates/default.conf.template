@@ -27,6 +27,13 @@ server {
     server_name ${NGINX_SERVER_NAME};
     return 301 https://$server_name$request_uri;
 }
+server {
+    listen 127.0.0.1:8099;
+    access_log off;
+    location / {
+        return 204;
+    }
+}
 
 server {
     listen 443 ssl;
@@ -44,12 +51,14 @@ server {
     # Include default security headers
     include /etc/nginx/snippets/cep-headers.conf;
 
-    location ^~ /csp-report/ {
-        uwsgi_read_timeout 60s;
-        uwsgi_send_timeout 600s;
-        uwsgi_pass  portal_core;
-        include     /etc/nginx/uwsgi_params;
-    }
+    location = /csp-report/ {
+    limit_except POST { deny all; }
+    client_max_body_size 64k;
+    client_body_buffer_size 64k;
+
+    access_log /dev/stdout csp_report;
+    proxy_pass http://127.0.0.1:8099;
+}
 
     location = /robots.txt {
         alias /var/www/robots.txt;
