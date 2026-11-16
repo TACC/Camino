@@ -9,6 +9,9 @@ services:
       # Per-service CSP domains used by service.conf.template
       - ${CAMINO_HOME}/conf/nginx/templates/csp-map.http.conf:/etc/nginx/conf.d/csp-map.http.conf:ro
       - ${CAMINO_HOME}/conf/nginx/robots.txt.default:/var/www/robots.txt:ro
+      - ./conf/camino/csp-log.http.conf:/etc/nginx/conf.d/csp-log.http.conf
+      - ./conf/camino/csp-sink.server.conf:/etc/nginx/conf.d/csp-sink.server.conf
+      - ./conf/camino/csp-report.location.conf:/etc/nginx/conf.d/csp-report.location.conf
       - /etc/ssl/dhparam.pem:/etc/ssl/dhparam.pem:ro
     ports:
       - 80:80
