@@ -51,14 +51,14 @@ server {
     # Include default security headers
     include /etc/nginx/snippets/cep-headers.conf;
 
-    {% comment %} location = /csp-report/ {
-    limit_except POST { deny all; }
-    client_max_body_size 64k;
-    client_body_buffer_size 64k;
+    location = /csp-report/ {
+        limit_except POST { deny all; }
+        client_max_body_size 64k;
+        client_body_buffer_size 64k;
 
-    access_log /dev/stdout csp_report;
-    proxy_pass http://127.0.0.1:8099;
-    } {% endcomment %}
+        access_log /dev/stdout csp_report;
+        proxy_pass http://127.0.0.1:8099;
+    }
 
     location = /robots.txt {
         alias /var/www/robots.txt;
